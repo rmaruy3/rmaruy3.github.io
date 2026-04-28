@@ -16,102 +16,68 @@
     .container { max-width: 640px; margin: 0 auto; }
 
     /* プロフィール部分 */
-    .profile { text-align: center; margin-bottom: 48px; }
+    .profile { text-align: center; margin-bottom: 60px; }
     .profile img {
-      width: 100px; height: 100px;
+      width: 120px; height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .profile h1 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .profile .role {
-      font-size: 13px;
+      font-size: 14px;
       color: #666;
       margin-bottom: 4px;
     }
     .profile .tagline {
-      font-size: 13px;
+      font-size: 14px;
       color: #cc2b2b;
       font-style: italic;
     }
 
-    /* ブログカード（大） */
-    .blog-card {
+    /* リンクカード */
+    .links { display: flex; flex-direction: column; gap: 12px; }
+    .link-card {
       display: block;
-      padding: 28px 28px;
-      border: 1.5px solid #0d0d0d;
-      border-radius: 10px;
+      padding: 18px 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
       text-decoration: none;
       color: #0d0d0d;
       transition: all 0.2s ease;
-      margin-bottom: 48px;
     }
-    .blog-card:hover {
+    .link-card:hover {
       border-color: #cc2b2b;
       transform: translateY(-2px);
     }
-    .blog-card .label {
-      font-size: 11px;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+    .link-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
     }
-    .blog-card h2 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .blog-card p {
+    .link-card p {
       font-size: 13px;
       color: #666;
     }
 
-    /* 小リンクグループ */
-    .small-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 32px;
-    }
-    .small-link {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      padding: 10px 4px;
-      text-decoration: none;
-      color: #0d0d0d;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 14px;
-      transition: color 0.15s;
-    }
-    .small-link:hover { color: #cc2b2b; }
-    .small-link .link-title { font-weight: 500; }
-    .small-link .link-desc {
-      font-size: 12px;
-      color: #999;
-    }
-
     /* セクション区切り */
     .section-label {
-      font-size: 11px;
+      font-size: 12px;
       color: #999;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin: 0 0 12px;
+      margin: 32px 0 12px;
       padding-left: 4px;
     }
-
-    .section { margin-bottom: 36px; }
 
     /* フッター */
     footer {
       text-align: center;
-      margin-top: 48px;
+      margin-top: 60px;
       padding-top: 24px;
       border-top: 1px solid #e0e0e0;
       font-size: 12px;
@@ -124,84 +90,74 @@
 
     <!-- プロフィール -->
     <section class="profile">
+      <!-- プロフィール画像（後で自分の画像に差し替え可能） -->
       <img src="https://prd.resource-api.lit.link/images/creators/a30c8ff7-2114-4543-9cfe-771beb72dfbe/icons/f700f416-bb4a-4d6c-b9fc-22ae1c6201c9.jpg" alt="丸山隆一">
       <h1>丸山隆一（Ryuichi Maruyama）</h1>
       <p class="role">個人事業主</p>
       <p class="tagline">"metascience communicator"</p>
     </section>
 
-    <!-- ブログ（大きく） -->
-    <a class="blog-card" href="/blog/">
-      <div class="label">Blog</div>
-      <h2>重ね描き日記</h2>
-      <p>読書メモ、探究メモなど。2015年〜</p>
-    </a>
-
-    <!-- Writing -->
-    <div class="section">
-      <p class="section-label">Writing</p>
-      <div class="small-links">
-        <a class="small-link" href="https://note.com/rmaruy" target="_blank" rel="noopener">
-          <span class="link-title">note</span>
-          <span class="link-desc">日々の思いつき</span>
-        </a>
-        <a class="small-link" href="https://www.kodansha.co.jp/book/products/0000423344#specs" target="_blank" rel="noopener">
-          <span class="link-title">共著書『現代社会を生きるための AI×哲学』</span>
-          <span class="link-desc">谷口忠大・鈴木貴之・丸山隆一／2026年2月</span>
-        </a>
-      </div>
+    <!-- ソーシャル・基本リンク -->
+    <p class="section-label">Profiles</p>
+    <div class="links">
+      <a class="link-card" href="https://www.linkedin.com/in/ryuichimaruyama1987/" target="_blank" rel="noopener">
+        <h2>LinkedIn</h2>
+      </a>
+      <a class="link-card" href="https://researchmap.jp/rmaruy" target="_blank" rel="noopener">
+        <h2>Researchmap</h2>
+        <p>修士研究に基づく論文、雑誌寄稿など</p>
+      </a>
+      <a class="link-card" href="https://twitter.com/rmaruy" target="_blank" rel="noopener">
+        <h2>X (Twitter)</h2>
+        <p>@rmaruy</p>
+      </a>
     </div>
 
-    <!-- Projects -->
-    <div class="section">
-      <p class="section-label">Projects & Reports</p>
-      <div class="small-links">
-        <a class="small-link" href="https://x.com/academist_cf/status/1960839750442737835" target="_blank" rel="noopener">
-          <span class="link-title">Open Academia Vision Book</span>
-          <span class="link-desc">アカデミスト全9回レクチャーシリーズの冊子</span>
-        </a>
-        <a class="small-link" href="/blog/2025/07/19/post.html" target="_blank" rel="noopener">
-          <span class="link-title">Metascience 2025（@ロンドン）簡易報告</span>
-          <span class="link-desc">メタサイエンス運動/連合の現在地</span>
-        </a>
-        <a class="small-link" href="https://speakerdeck.com/rmaruy/gai-yao-ban-kao-cha-noto-agirisuku-noyi-lun-nidouxiang-kihe-ebaiinoka-ver-dot-1" target="_blank" rel="noopener">
-          <span class="link-title">考察ノート：「AGIリスク」の議論にどう向き合えばいいのか</span>
-          <span class="link-desc">2024.9.29 個人レポート</span>
-        </a>
-      </div>
+    <!-- 執筆 -->
+    <p class="section-label">Writing</p>
+    <div class="links">
+      <a class="link-card" href="https://rmaruy.hatenablog.com/" target="_blank" rel="noopener">
+        <h2>ブログ「重ね描き日記」</h2>
+        <p>読書メモなど</p>
+      </a>
+      <a class="link-card" href="https://note.com/rmaruy" target="_blank" rel="noopener">
+        <h2>note</h2>
+        <p>日々の思いつきを記しています</p>
+      </a>
+      <a class="link-card" href="https://www.kodansha.co.jp/book/products/0000423344#specs" target="_blank" rel="noopener">
+        <h2>共著書『現代社会を生きるための AI×哲学』</h2>
+        <p>谷口忠大・鈴木貴之・丸山隆一／2026年2月刊行</p>
+      </a>
     </div>
 
-    <!-- Profiles -->
-    <div class="section">
-      <p class="section-label">Profiles</p>
-      <div class="small-links">
-        <a class="small-link" href="https://www.linkedin.com/in/ryuichimaruyama1987/" target="_blank" rel="noopener">
-          <span class="link-title">LinkedIn</span>
-        </a>
-        <a class="small-link" href="https://researchmap.jp/rmaruy" target="_blank" rel="noopener">
-          <span class="link-title">Researchmap</span>
-          <span class="link-desc">修士研究に基づく論文、雑誌寄稿など</span>
-        </a>
-        <a class="small-link" href="https://twitter.com/rmaruy" target="_blank" rel="noopener">
-          <span class="link-title">X (Twitter)</span>
-          <span class="link-desc">@rmaruy</span>
-        </a>
-      </div>
+    <!-- プロジェクト・レポート -->
+    <p class="section-label">Projects & Reports</p>
+    <div class="links">
+      <a class="link-card" href="https://x.com/academist_cf/status/1960839750442737835" target="_blank" rel="noopener">
+        <h2>Open academia Vision Book</h2>
+        <p>アカデミストで担当した全9回のレクチャーシリーズの完結に合わせて制作した冊子</p>
+      </a>
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2025/07/19/193849" target="_blank" rel="noopener">
+        <h2>Metascience 2025（@ロンドン）簡易報告</h2>
+        <p>メタサイエンス運動/連合の現在地</p>
+      </a>
+      <a class="link-card" href="https://speakerdeck.com/rmaruy/gai-yao-ban-kao-cha-noto-agirisuku-noyi-lun-nidouxiang-kihe-ebaiinoka-ver-dot-1" target="_blank" rel="noopener">
+        <h2>考察ノート：「AGIリスク」の議論にどう向き合えばいいのか Ver.1</h2>
+        <p>2024.9.29 個人レポート</p>
+      </a>
     </div>
 
-    <!-- Career -->
-    <div class="section">
-      <p class="section-label">Career</p>
-      <div class="small-links">
-        <a class="small-link" href="/blog/2024/03/29/post.html">
-          <span class="link-title">前職：JST-CRDS</span>
-          <span class="link-desc">退職時の感想文</span>
-        </a>
-        <a class="small-link" href="/blog/2020/11/30/post.html">
-          <span class="link-title">前々職：森北出版</span>
-          <span class="link-desc">退職時の感想文</span>
-        </a>
-      </div>
+    <!-- 経歴 -->
+    <p class="section-label">Career</p>
+    <div class="links">
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2024/03/29/171838" target="_blank" rel="noopener">
+        <h2>前職：JST-CRDS</h2>
+        <p>退職時の感想文</p>
+      </a>
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2020/11/30/131958" target="_blank" rel="noopener">
+        <h2>前々職：森北出版</h2>
+        <p>退職時の感想文</p>
+      </a>
     </div>
 
     <footer>
