@@ -25,6 +25,7 @@ baseurl: ""
 url: "https://rmaruy.github.io"
 twitter_username: rmaruy
 github_username: rmaruy3
+timezone: Asia/Tokyo
 plugins:
   - jekyll-feed
 
