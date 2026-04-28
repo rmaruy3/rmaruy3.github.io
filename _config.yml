@@ -26,6 +26,7 @@ url: "https://rmaruy.github.io"
 twitter_username: rmaruy
 github_username: rmaruy3
 timezone: Asia/Tokyo
+permalink: /blog/:year/:month/:day/:title.html
 plugins:
   - jekyll-feed
 
