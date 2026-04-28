@@ -45,9 +45,9 @@ layout: null
     .tag-btn {
       background: #f5f5f5;
       border: 1px solid transparent;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 11px;
       font-family: inherit;
       cursor: pointer;
       color: #444;
@@ -101,6 +101,7 @@ layout: null
     <div class="tag-filter">
       <div class="tag-filter-label">タグで絞り込む</div>
       <div class="tag-cloud" id="tag-cloud">
+        <button class="tag-btn active" data-tag="">all</button>
         {% assign all_tags = site.posts | map: "tags" | join: "," | split: "," | uniq | sort %}
         {% for tag in all_tags %}
           {% assign tag_trimmed = tag | strip %}
@@ -185,9 +186,10 @@ layout: null
     function setActiveTag(tag) {
       activeTag = tag;
 
-      // タグボタンの見た目を更新
+      // タグボタンの見た目を更新（allボタンはactiveTag=''のとき点灯）
       tagBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tag === tag);
+        const isAll = btn.dataset.tag === '';
+        btn.classList.toggle('active', isAll ? tag === '' : btn.dataset.tag === tag);
       });
       // 記事内タグの見た目を更新
       postTags.forEach(t => {
@@ -200,11 +202,12 @@ layout: null
     // 検索入力
     searchInput.addEventListener('input', applyFilter);
 
-    // タグボタンのクリック（2回クリックで解除）
+    // タグボタンのクリック（allまたは2回クリックで解除）
     tagBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const tag = btn.dataset.tag;
-        setActiveTag(activeTag === tag ? '' : tag);
+        // allボタン、または同じタグを再クリックで全表示に戻す
+        setActiveTag(tag === '' || activeTag === tag ? '' : tag);
       });
     });
 
