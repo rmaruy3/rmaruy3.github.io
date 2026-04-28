@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - 重ね描き日記</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #ffffff;
+      color: #0d0d0d;
+      line-height: 1.9;
+      padding: 60px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    .back { font-size: 13px; color: #999; margin-bottom: 40px; display: block; text-decoration: none; }
+    .back:hover { color: #cc2b2b; }
+    .post-header { margin-bottom: 40px; }
+    .post-header h1 { font-size: 22px; font-weight: 700; line-height: 1.5; margin-bottom: 12px; }
+    .post-meta { font-size: 13px; color: #999; }
+    .post-tags { margin-left: 8px; }
+    .post-tag { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; margin-left: 4px; font-size: 11px; }
+    .post-content { font-size: 16px; }
+    .post-content h2 { font-size: 19px; font-weight: 700; margin: 2em 0 0.8em; line-height: 1.4; }
+    .post-content h3 { font-size: 17px; font-weight: 700; margin: 2em 0 0.8em; line-height: 1.4; }
+    .post-content h4, .post-content h5 { font-size: 15px; font-weight: 700; margin: 2em 0 0.8em; }
+    .post-content p { margin-bottom: 1.4em; }
+    .post-content a { color: #cc2b2b; }
+    .post-content img { max-width: 100%; height: auto; margin: 1.5em 0; display: block; }
+    .post-content ul, .post-content ol { margin: 1em 0 1.4em 1.5em; }
+    .post-content li { margin-bottom: 0.4em; }
+    .post-content blockquote { border-left: 3px solid #e0e0e0; padding-left: 16px; color: #666; margin: 1.5em 0; }
+    .post-content code { background: #f5f5f5; padding: 2px 5px; border-radius: 3px; font-size: 14px; }
+    .post-content pre { background: #f5f5f5; padding: 16px; border-radius: 6px; overflow-x: auto; margin: 1.5em 0; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-nav { margin-top: 60px; padding-top: 24px; border-top: 1px solid #e0e0e0; display: flex; justify-content: space-between; font-size: 13px; }
+    .post-nav a { color: #999; text-decoration: none; }
+    .post-nav a:hover { color: #cc2b2b; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #999; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/blog/">← 記事一覧に戻る</a>
+    <article>
+      <header class="post-header">
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+          {{ page.date | date: "%Y年%m月%d日" }}
+          {% if page.tags %}
+          <span class="post-tags">
+            {% for tag in page.tags %}
+            <span class="post-tag">{{ tag }}</span>
+            {% endfor %}
+          </span>
+          {% endif %}
+        </div>
+      </header>
+      <div class="post-content">
+        {{ content }}
+      </div>
+    </article>
+    <nav class="post-nav">
+      <div>{% if page.previous %}<a href="{{ page.previous.url }}">← {{ page.previous.title | truncate: 30 }}</a>{% endif %}</div>
+      <div>{% if page.next %}<a href="{{ page.next.url }}">{{ page.next.title | truncate: 30 }} →</a>{% endif %}</div>
+    </nav>
+    <footer>© Ryuichi Maruyama</footer>
+  </div>
+</body>
+</html>
