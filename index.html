@@ -2,10 +2,167 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>はじめてのサイト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>丸山隆一（Ryuichi Maruyama）</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #ffffff;
+      color: #0d0d0d;
+      line-height: 1.7;
+      padding: 60px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+
+    /* プロフィール部分 */
+    .profile { text-align: center; margin-bottom: 60px; }
+    .profile img {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .profile h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .profile .role {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .profile .tagline {
+      font-size: 14px;
+      color: #cc2b2b;
+      font-style: italic;
+    }
+
+    /* リンクカード */
+    .links { display: flex; flex-direction: column; gap: 12px; }
+    .link-card {
+      display: block;
+      padding: 18px 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #0d0d0d;
+      transition: all 0.2s ease;
+    }
+    .link-card:hover {
+      border-color: #cc2b2b;
+      transform: translateY(-2px);
+    }
+    .link-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .link-card p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* セクション区切り */
+    .section-label {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 32px 0 12px;
+      padding-left: 4px;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
-  <h1>こんにちは、世界</h1>
-  <p>これがGitHubで作った最初のページです。</p>
+  <div class="container">
+
+    <!-- プロフィール -->
+    <section class="profile">
+      <!-- プロフィール画像（後で自分の画像に差し替え可能） -->
+      <img src="https://prd.resource-api.lit.link/images/creators/a30c8ff7-2114-4543-9cfe-771beb72dfbe/icons/f700f416-bb4a-4d6c-b9fc-22ae1c6201c9.jpg" alt="丸山隆一">
+      <h1>丸山隆一（Ryuichi Maruyama）</h1>
+      <p class="role">個人事業主</p>
+      <p class="tagline">"metascience communicator"</p>
+    </section>
+
+    <!-- ソーシャル・基本リンク -->
+    <p class="section-label">Profiles</p>
+    <div class="links">
+      <a class="link-card" href="https://www.linkedin.com/in/ryuichimaruyama1987/" target="_blank" rel="noopener">
+        <h2>LinkedIn</h2>
+      </a>
+      <a class="link-card" href="https://researchmap.jp/rmaruy" target="_blank" rel="noopener">
+        <h2>Researchmap</h2>
+        <p>修士研究に基づく論文、雑誌寄稿など</p>
+      </a>
+      <a class="link-card" href="https://twitter.com/rmaruy" target="_blank" rel="noopener">
+        <h2>X (Twitter)</h2>
+        <p>@rmaruy</p>
+      </a>
+    </div>
+
+    <!-- 執筆 -->
+    <p class="section-label">Writing</p>
+    <div class="links">
+      <a class="link-card" href="https://rmaruy.hatenablog.com/" target="_blank" rel="noopener">
+        <h2>ブログ「重ね描き日記」</h2>
+        <p>読書メモなど</p>
+      </a>
+      <a class="link-card" href="https://note.com/rmaruy" target="_blank" rel="noopener">
+        <h2>note</h2>
+        <p>日々の思いつきを記しています</p>
+      </a>
+      <a class="link-card" href="https://www.kodansha.co.jp/book/products/0000423344#specs" target="_blank" rel="noopener">
+        <h2>共著書『現代社会を生きるための AI×哲学』</h2>
+        <p>谷口忠大・鈴木貴之・丸山隆一／2026年2月刊行</p>
+      </a>
+    </div>
+
+    <!-- プロジェクト・レポート -->
+    <p class="section-label">Projects & Reports</p>
+    <div class="links">
+      <a class="link-card" href="https://x.com/academist_cf/status/1960839750442737835" target="_blank" rel="noopener">
+        <h2>Open academia Vision Book</h2>
+        <p>アカデミストで担当した全9回のレクチャーシリーズの完結に合わせて制作した冊子</p>
+      </a>
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2025/07/19/193849" target="_blank" rel="noopener">
+        <h2>Metascience 2025（@ロンドン）簡易報告</h2>
+        <p>メタサイエンス運動/連合の現在地</p>
+      </a>
+      <a class="link-card" href="https://speakerdeck.com/rmaruy/gai-yao-ban-kao-cha-noto-agirisuku-noyi-lun-nidouxiang-kihe-ebaiinoka-ver-dot-1" target="_blank" rel="noopener">
+        <h2>考察ノート：「AGIリスク」の議論にどう向き合えばいいのか Ver.1</h2>
+        <p>2024.9.29 個人レポート</p>
+      </a>
+    </div>
+
+    <!-- 経歴 -->
+    <p class="section-label">Career</p>
+    <div class="links">
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2024/03/29/171838" target="_blank" rel="noopener">
+        <h2>前職：JST-CRDS</h2>
+        <p>退職時の感想文</p>
+      </a>
+      <a class="link-card" href="https://rmaruy.hatenablog.com/entry/2020/11/30/131958" target="_blank" rel="noopener">
+        <h2>前々職：森北出版</h2>
+        <p>退職時の感想文</p>
+      </a>
+    </div>
+
+    <footer>
+      © Ryuichi Maruyama
+    </footer>
+  </div>
 </body>
 </html>
