@@ -108,6 +108,38 @@
 
     .section { margin-bottom: 36px; }
 
+    /* コンタクトフォーム */
+    .contact-form { display: flex; flex-direction: column; gap: 8px; }
+    .contact-form input,
+    .contact-form textarea {
+      font-family: inherit;
+      font-size: 13px;
+      color: #555;
+      background: #fafafa;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 8px 10px;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: #bbb; background: #fff; }
+    .contact-form textarea { min-height: 80px; }
+    .contact-form button {
+      align-self: flex-end;
+      font-family: inherit;
+      font-size: 12px;
+      color: #999;
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .contact-form button:hover { border-color: #999; color: #555; }
+
     /* フッター */
     footer {
       text-align: center;
@@ -202,6 +234,16 @@
           <span class="link-desc">退職時の感想文</span>
         </a>
       </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <p class="section-label">Contact</p>
+      <form class="contact-form" action="https://formspree.io/f/xnjlkkdp" method="POST">
+        <input type="email" name="email" placeholder="your email" required>
+        <textarea name="message" placeholder="message" required></textarea>
+        <button type="submit">send</button>
+      </form>
     </div>
 
     <footer>
