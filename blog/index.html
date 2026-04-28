@@ -24,6 +24,23 @@ layout: null
     .back { font-size: 13px; color: #999; margin-bottom: 24px; display: block; text-decoration: none; }
     .back:hover { color: #cc2b2b; }
 
+    /* 特集セクション */
+    .feature { border: 1.5px solid #e0e0e0; border-radius: 8px; padding: 20px 24px; margin-bottom: 36px; }
+    .feature-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; line-height: 1.5; }
+    .feature-links { display: flex; flex-direction: column; gap: 0; }
+    .feature-link {
+      display: flex; align-items: baseline; gap: 10px;
+      padding: 8px 0;
+      text-decoration: none;
+      color: #0d0d0d;
+      border-top: 1px solid #f0f0f0;
+      font-size: 13px;
+      transition: color 0.15s;
+    }
+    .feature-link:hover { color: #cc2b2b; }
+    .feature-link .ep { font-size: 11px; color: #aaa; flex-shrink: 0; }
+
     /* 検索ボックス */
     .search-box {
       width: 100%;
@@ -93,6 +110,22 @@ layout: null
       <h1>重ね描き日記</h1>
       <p>読書メモ、探究メモなど。2015年〜</p>
     </header>
+
+    <!-- 特集 -->
+    <div class="feature">
+      <div class="feature-label">Featured Series</div>
+      <div class="feature-title">AIと生きる時代の〈理解〉考</div>
+      <div class="feature-links">
+        <a class="feature-link" href="/blog/2026/02/01/post.html">
+          <span class="ep">第0回</span>
+          <span>連載を始めるにあたって</span>
+        </a>
+        <a class="feature-link" href="/blog/2026/02/17/post.html">
+          <span class="ep">第1回</span>
+          <span>LLMは理解しているのか？</span>
+        </a>
+      </div>
+    </div>
 
     <!-- 検索ボックス -->
     <input class="search-box" id="search" type="text" placeholder="記事を検索...">
