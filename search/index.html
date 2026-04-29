@@ -319,6 +319,22 @@ layout: null
     applySearch();
   });
 
+  // ── URLパラメータ読み込み（?q=キーワード&c=blog など） ──────
+  (function() {
+    const params = new URLSearchParams(location.search);
+    const initQ = params.get('q') || '';
+    const initC = params.get('c') || 'all';
+
+    if (initQ) searchInput.value = initQ;
+
+    if (initC && initC !== 'all') {
+      activeCol = initC;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.col === initC);
+      });
+    }
+  })();
+
   // ── 起動 ─────────────────────────────────────────────────
   loadIndex();
 </script>
