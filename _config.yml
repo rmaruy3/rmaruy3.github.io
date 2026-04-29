@@ -30,6 +30,18 @@ permalink: /blog/:year/:month/:day/:title.html
 plugins:
   - jekyll-feed
 
+collections:
+  note:
+    output: true
+    permalink: /note/:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: note
+    values:
+      layout: post_note
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
