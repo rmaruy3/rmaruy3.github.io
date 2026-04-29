@@ -44,6 +44,4 @@ defaults:
 
 exclude:
   - _templates/
-  - tweets.json
-  - tweets_meta.json
   - convert_tweets.py

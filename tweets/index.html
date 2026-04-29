@@ -6,7 +6,7 @@ layout: null
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X / Twitter アーカイブ - 重ね描き日記</title>
+  <title>Twitter / X アーカイブ - 重ね描き日記</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,16 +19,36 @@ layout: null
     .container { max-width: 640px; margin: 0 auto; }
     .back { font-size: 13px; color: #999; margin-bottom: 32px; display: block; text-decoration: none; }
     .back:hover { color: #cc2b2b; }
-    header { margin-bottom: 28px; }
+    header { margin-bottom: 24px; }
     header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
     header p { font-size: 13px; color: #666; }
 
-    .year-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 28px;
+    .global-search { display: flex; gap: 8px; margin-bottom: 24px; }
+    .global-search input {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.15s;
     }
+    .global-search input:focus { border-color: #cc2b2b; }
+    .global-search button {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-family: inherit;
+      background: #0d0d0d;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .global-search button:hover { background: #cc2b2b; }
+
+    .year-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
     .year-btn {
       padding: 4px 12px;
       border-radius: 4px;
@@ -55,36 +75,13 @@ layout: null
       padding-bottom: 6px;
       border-bottom: 1px solid #f0f0f0;
     }
-
-    .tweet-item {
-      display: flex;
-      gap: 14px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f8f8f8;
-    }
-    .tweet-date {
-      font-size: 12px;
-      color: #bbb;
-      flex-shrink: 0;
-      width: 52px;
-      padding-top: 2px;
-    }
+    .tweet-item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid #f8f8f8; }
+    .tweet-date { font-size: 12px; color: #bbb; flex-shrink: 0; width: 52px; padding-top: 2px; }
     .tweet-body { flex: 1; min-width: 0; }
-    .tweet-text {
-      font-size: 14px;
-      line-height: 1.65;
-      word-break: break-word;
-      white-space: pre-wrap;
-    }
+    .tweet-text { font-size: 14px; line-height: 1.65; word-break: break-word; white-space: pre-wrap; }
     .tweet-text a { color: #1d9bf0; text-decoration: none; }
     .tweet-text a:hover { text-decoration: underline; }
-    .tweet-link {
-      display: inline-block;
-      margin-top: 5px;
-      font-size: 11px;
-      color: #ccc;
-      text-decoration: none;
-    }
+    .tweet-link { display: inline-block; margin-top: 5px; font-size: 11px; color: #ccc; text-decoration: none; }
     .tweet-link:hover { color: #1d9bf0; }
 
     .loading { text-align: center; padding: 60px 0; font-size: 14px; color: #999; }
@@ -95,9 +92,14 @@ layout: null
   <div class="container">
     <a class="back" href="/">← プロフィールに戻る</a>
     <header>
-      <h1>X / Twitter アーカイブ</h1>
+      <h1>Twitter / X アーカイブ</h1>
       <p id="header-desc">読み込み中…</p>
     </header>
+
+    <form class="global-search" id="global-search">
+      <input type="search" id="global-q" placeholder="全文検索（blog・note・Twitter横断）…" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
 
     <div class="year-nav" id="year-nav"></div>
     <div class="meta-bar" id="meta-bar"></div>
@@ -107,27 +109,40 @@ layout: null
   </div>
 
 <script>
-  const MONTHS_JA = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const MONTHS_JA = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
   let allTweets = [];
   let activeYear = null;
 
-  async function init() {
-    const res = await fetch('/tweets.json');
-    allTweets = await res.json();
+  document.getElementById("global-search").addEventListener("submit", function(e) {
+    e.preventDefault();
+    var q = document.getElementById("global-q").value.trim();
+    if (q) window.location.href = "/search/?q=" + encodeURIComponent(q) + "&c=tweet";
+    else   window.location.href = "/search/?c=tweet";
+  });
 
-    const years = [...new Set(allTweets.map(t => t.date.slice(0,4)))].sort((a,b) => b-a);
+  async function init() {
+    try {
+      var res = await fetch("/tweets.json");
+      allTweets = await res.json();
+    } catch(e) {
+      document.getElementById("tweets-area").innerHTML =
+        "<div class=\"loading\">読み込みに失敗しました: " + e.message + "</div>";
+      return;
+    }
+
+    var years = [...new Set(allTweets.map(function(t){ return t.date.slice(0,4); }))].sort(function(a,b){ return b-a; });
     activeYear = years[0];
 
-    document.getElementById('header-desc').textContent =
-      allTweets.length.toLocaleString() + ' ツイート（RT除く）/ 2011〜' + years[0];
+    document.getElementById("header-desc").textContent =
+      allTweets.length.toLocaleString() + " ツイート（RT除く）/ 2011〜" + years[0];
 
-    const nav = document.getElementById('year-nav');
-    years.forEach(y => {
-      const btn = document.createElement('button');
-      btn.className = 'year-btn' + (y === activeYear ? ' active' : '');
+    var nav = document.getElementById("year-nav");
+    years.forEach(function(y) {
+      var btn = document.createElement("button");
+      btn.className = "year-btn" + (y === activeYear ? " active" : "");
       btn.textContent = y;
       btn.dataset.year = y;
-      btn.addEventListener('click', () => setYear(y));
+      btn.addEventListener("click", function(){ setYear(y); });
       nav.appendChild(btn);
     });
 
@@ -136,61 +151,51 @@ layout: null
 
   function setYear(y) {
     activeYear = y;
-    document.querySelectorAll('.year-btn').forEach(b => {
-      b.classList.toggle('active', b.dataset.year === y);
+    document.querySelectorAll(".year-btn").forEach(function(b){
+      b.classList.toggle("active", b.dataset.year === y);
     });
     renderYear(y);
   }
 
   function renderYear(year) {
-    const tweets = allTweets.filter(t => t.date.startsWith(year));
-    const bar = document.getElementById('meta-bar');
-    bar.textContent = year + '年: ' + tweets.length + ' ツイート';
+    var tweets = allTweets.filter(function(t){ return t.date.startsWith(year); });
+    document.getElementById("meta-bar").textContent = year + "年: " + tweets.length + " ツイート";
 
-    // 月別にグループ
-    const byMonth = {};
-    tweets.forEach(t => {
-      const m = parseInt(t.date.slice(5,7), 10);
+    var byMonth = {};
+    tweets.forEach(function(t) {
+      var m = parseInt(t.date.slice(5,7), 10);
       if (\!byMonth[m]) byMonth[m] = [];
       byMonth[m].push(t);
     });
 
-    const area = document.getElementById('tweets-area');
-    const months = Object.keys(byMonth).map(Number).sort((a,b) => b-a);
-
-    area.innerHTML = months.map(m => {
-      const items = byMonth[m];
-      const rows = items.map(t => {
-        const day = t.date.slice(8,10);
-        const text = escapeHtml(t.content).replace(
+    var months = Object.keys(byMonth).map(Number).sort(function(a,b){ return b-a; });
+    document.getElementById("tweets-area").innerHTML = months.map(function(m) {
+      var rows = byMonth[m].map(function(t) {
+        var day = t.date.slice(8,10);
+        var text = escapeHtml(t.content).replace(
           /(https?:\/\/[^\s]+)/g,
-          '<a href="$1" target="_blank" rel="noopener">$1</a>'
+          "<a href=\"$1\" target=\"_blank\" rel=\"noopener\">$1</a>"
         );
-        return '<div class="tweet-item">' +
-          '<span class="tweet-date">' + day + '日</span>' +
-          '<div class="tweet-body">' +
-            '<div class="tweet-text">' + text + '</div>' +
-            '<a class="tweet-link" href="' + t.url + '" target="_blank" rel="noopener">X で見る →</a>' +
-          '</div>' +
-        '</div>';
-      }).join('');
-      return '<div class="month-group">' +
-        '<div class="month-label">' + year + '年 ' + MONTHS_JA[m-1] + '</div>' +
-        rows +
-      '</div>';
-    }).join('');
+        return "<div class=\"tweet-item\">" +
+          "<span class=\"tweet-date\">" + day + "日</span>" +
+          "<div class=\"tweet-body\">" +
+            "<div class=\"tweet-text\">" + text + "</div>" +
+            "<a class=\"tweet-link\" href=\"" + t.url + "\" target=\"_blank\" rel=\"noopener\">X で見る →</a>" +
+          "</div></div>";
+      }).join("");
+      return "<div class=\"month-group\">" +
+        "<div class=\"month-label\">" + year + "年 " + MONTHS_JA[m-1] + "</div>" +
+        rows + "</div>";
+    }).join("");
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function escapeHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
 
-  init().catch(e => {
-    document.getElementById('tweets-area').innerHTML =
-      '<div class="loading">読み込みに失敗しました: ' + e.message + '</div>';
-  });
+  init();
 </script>
 </body>
 </html>
