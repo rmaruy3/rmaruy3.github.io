@@ -226,8 +226,14 @@ layout: null
         return allMatch ? { doc, score } : null;
       })
       .filter(Boolean)
-      .sort((a, b) => b.score - a.score)
-      .map(x => x.doc);
+      .sort((a, b) => {
+        // 日付降順（新しい順）、同日ならスコア降順
+        const dateDiff = (b.doc.date || '').localeCompare(a.doc.date || '');
+        return dateDiff !== 0 ? dateDiff : b.score - a.score;
+      })
+      .map(x => x.doc)
+      // URL でダブり除去
+      .filter((doc, i, arr) => arr.findIndex(d => d.url === doc.url) === i);
   }
 
   // ── スニペット生成（ヒット箇所周辺を抽出してハイライト） ───────
