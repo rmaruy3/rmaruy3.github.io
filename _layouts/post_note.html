@@ -21,16 +21,7 @@
     .post-meta { font-size: 13px; color: #999; }
     .post-tags { margin-left: 8px; }
     .post-tag { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; margin-left: 4px; font-size: 11px; }
-    .note-origin {
-      font-size: 13px;
-      color: #999;
-      background: #f9f9f9;
-      border-left: 3px solid #e0e0e0;
-      padding: 10px 14px;
-      margin-bottom: 32px;
-    }
-    .note-origin a { color: #cc2b2b; }
-    .post-content { font-size: 16px; }
+.post-content { font-size: 16px; }
     .post-content h2 { font-size: 19px; font-weight: 700; margin: 2em 0 0.8em; line-height: 1.4; }
     .post-content h3 { font-size: 17px; font-weight: 700; margin: 2em 0 0.8em; line-height: 1.4; }
     .post-content h4, .post-content h5 { font-size: 15px; font-weight: 700; margin: 2em 0 0.8em; }
@@ -66,11 +57,6 @@
           {% endif %}
         </div>
       </header>
-      {% if page.source_url %}
-      <div class="note-origin">
-        この記事はもともと <a href="{{ page.source_url }}" target="_blank" rel="noopener">note</a> に投稿したものです。
-      </div>
-      {% endif %}
       <div class="post-content">
         {{ content }}
       </div>
