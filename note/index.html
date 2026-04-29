@@ -6,7 +6,7 @@ layout: null
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>note アーカイブ - 重ね描き日記</title>
+  <title>note: 日々の思いつき - 重ね描き日記</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -90,7 +90,7 @@ layout: null
   <div class="container">
     <a class="back" href="/">← プロフィールに戻る</a>
     <header>
-      <h1>note アーカイブ</h1>
+      <h1>note: 日々の思いつき</h1>
       <p>2019年〜 noteに投稿した記事のアーカイブです。</p>
     </header>
 
@@ -103,6 +103,7 @@ layout: null
       <div class="tag-cloud" id="tag-cloud">
         <button class="tag-btn active" data-tag="">all</button>
         {% assign all_tags = site.note | map: "tags" | join: "," | split: "," | uniq | sort %}
+
         {% for tag in all_tags %}
           {% assign tag_trimmed = tag | strip %}
           {% if tag_trimmed != "" %}
@@ -117,7 +118,8 @@ layout: null
 
     <!-- 記事リスト -->
     <ul class="post-list" id="post-list">
-      {% for post in site.note %}
+      {% assign note_sorted = site.note | sort: "date" | reverse %}
+      {% for post in note_sorted %}
       <li class="post-item"
           data-title="{{ post.title | downcase | escape }}"
           data-tags="{% for tag in post.tags %}{{ tag | strip }}|||{% endfor %}">
