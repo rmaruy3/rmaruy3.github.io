@@ -1,0 +1,326 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>検索 - 重ね描き日記</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #ffffff;
+      color: #0d0d0d;
+      line-height: 1.7;
+      padding: 60px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    .back { font-size: 13px; color: #999; margin-bottom: 32px; display: block; text-decoration: none; }
+    .back:hover { color: #cc2b2b; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+
+    .search-box {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1.5px solid #0d0d0d;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.15s;
+    }
+    .search-box:focus { border-color: #cc2b2b; }
+
+    /* コレクションフィルター */
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+      background: #f5f5f5;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      color: #444;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { background: #eee; }
+    .filter-btn.active { background: #0d0d0d; color: #fff; border-color: #0d0d0d; }
+    .filter-btn[data-col="note"].active { background: #555; border-color: #555; }
+    .filter-btn[data-col="tweet"].active { background: #1d9bf0; border-color: #1d9bf0; }
+
+    /* ステータス */
+    .status { font-size: 12px; color: #999; margin-bottom: 16px; min-height: 18px; }
+
+    /* 結果リスト */
+    .results { list-style: none; }
+    .result-item {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 0;
+    }
+    .result-item a { text-decoration: none; color: #0d0d0d; display: block; }
+    .result-item a:hover .result-title { color: #cc2b2b; }
+
+    .result-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .badge-blog  { background: #0d0d0d; color: #fff; }
+    .badge-note  { background: #e8e8e8; color: #444; }
+    .badge-tweet { background: #1d9bf0; color: #fff; }
+    .result-date { font-size: 12px; color: #999; }
+
+    .result-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+    .result-snippet {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .result-snippet mark {
+      background: #fff3b0;
+      color: inherit;
+      padding: 0 1px;
+      border-radius: 2px;
+    }
+    .result-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .result-tag {
+      font-size: 11px;
+      background: #f5f5f5;
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: #888;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 48px 0;
+      font-size: 14px;
+      color: #999;
+      display: none;
+    }
+    .loading {
+      text-align: center;
+      padding: 48px 0;
+      font-size: 14px;
+      color: #999;
+    }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #999; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← プロフィールに戻る</a>
+    <h1>検索</h1>
+
+    <input class="search-box" id="search" type="search" placeholder="キーワードを入力…" autofocus autocomplete="off">
+
+    <div class="filter-row" id="filter-row">
+      <button class="filter-btn active" data-col="all">すべて</button>
+      <button class="filter-btn" data-col="blog">Blog</button>
+      <button class="filter-btn" data-col="note">note</button>
+      <!-- Twitter追加時: <button class="filter-btn" data-col="tweet">X / Twitter</button> -->
+    </div>
+
+    <div class="status" id="status"></div>
+    <div class="loading" id="loading">インデックスを読み込み中…</div>
+    <ul class="results" id="results"></ul>
+    <div class="no-results" id="no-results">「<span id="no-query"></span>」に一致する記事が見つかりませんでした</div>
+
+    <footer>© Ryuichi Maruyama</footer>
+  </div>
+
+<script>
+  // ── 設定 ─────────────────────────────────────────────────
+  const SNIPPET_LEN  = 120;  // 表示する前後の文字数
+  const DEBOUNCE_MS  = 180;
+  const MIN_QUERY    = 1;    // 最低文字数
+
+  // ── 状態 ─────────────────────────────────────────────────
+  let docs       = [];
+  let activeCol  = 'all';
+  let debounceId = null;
+
+  const searchInput = document.getElementById('search');
+  const resultsList = document.getElementById('results');
+  const statusEl    = document.getElementById('status');
+  const noResults   = document.getElementById('no-results');
+  const noQuery     = document.getElementById('no-query');
+  const loadingEl   = document.getElementById('loading');
+
+  // ── データ読み込み ─────────────────────────────────────────
+  async function loadIndex() {
+    const sources = ['/search.json'];
+    // Twitter追加時: sources.push('/tweets.json'); など
+
+    const fetched = await Promise.allSettled(sources.map(u => fetch(u).then(r => r.json())));
+    let all = [];
+    fetched.forEach(r => { if (r.status === 'fulfilled') all = all.concat(r.value); });
+    docs = all;
+    loadingEl.style.display = 'none';
+    statusEl.textContent = `${docs.length} 件のコンテンツをインデックス済み`;
+    // 入力済みがあればすぐ検索
+    if (searchInput.value.trim().length >= MIN_QUERY) applySearch();
+  }
+
+  // ── 検索ロジック（日本語対応・マルチワード） ─────────────────
+  function search(query, col) {
+    const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    if (terms.length === 0) return [];
+
+    return docs
+      .filter(doc => col === 'all' || doc.collection === col)
+      .map(doc => {
+        const titleL   = (doc.title   || '').toLowerCase();
+        const contentL = (doc.content || '').toLowerCase();
+        const tagsL    = (doc.tags    || '').toLowerCase();
+
+        let score = 0;
+        const allMatch = terms.every(term => {
+          const inTitle   = titleL.includes(term);
+          const inContent = contentL.includes(term);
+          const inTags    = tagsL.includes(term);
+          if (inTitle)   score += 10;
+          if (inTags)    score += 5;
+          if (inContent) score += 1;
+          return inTitle || inContent || inTags;
+        });
+
+        return allMatch ? { doc, score } : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.doc);
+  }
+
+  // ── スニペット生成（ヒット箇所周辺を抽出してハイライト） ───────
+  function buildSnippet(text, terms) {
+    if (!text) return '';
+    const textL = text.toLowerCase();
+
+    // 最初にマッチした term の位置を探す
+    let pos = -1;
+    for (const term of terms) {
+      const p = textL.indexOf(term);
+      if (p >= 0 && (pos < 0 || p < pos)) pos = p;
+    }
+
+    let start = 0, end = SNIPPET_LEN * 2;
+    if (pos >= 0) {
+      start = Math.max(0, pos - SNIPPET_LEN);
+      end   = Math.min(text.length, pos + SNIPPET_LEN);
+    }
+    let snippet = (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+
+    // ハイライト
+    terms.forEach(term => {
+      const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      snippet = snippet.replace(re, m => `<mark>${m}</mark>`);
+    });
+    return snippet;
+  }
+
+  // ── 結果を描画 ────────────────────────────────────────────
+  function render(matched, terms) {
+    resultsList.innerHTML = '';
+    noResults.style.display = 'none';
+
+    if (matched.length === 0) {
+      noQuery.textContent = searchInput.value.trim();
+      noResults.style.display = 'block';
+      statusEl.textContent = '';
+      return;
+    }
+
+    statusEl.textContent = `${matched.length} 件ヒット`;
+
+    matched.forEach(doc => {
+      const li = document.createElement('li');
+      li.className = 'result-item';
+
+      const badgeClass = doc.collection === 'note' ? 'badge-note'
+                       : doc.collection === 'tweet' ? 'badge-tweet'
+                       : 'badge-blog';
+      const badgeLabel = doc.collection === 'note' ? 'note'
+                       : doc.collection === 'tweet' ? 'X'
+                       : 'Blog';
+
+      const snippet = buildSnippet(doc.content, terms);
+      const tagsArr = (doc.tags || '').split(' ').filter(Boolean);
+      const tagsHtml = tagsArr.map(t => `<span class="result-tag">${t}</span>`).join('');
+
+      li.innerHTML = `
+        <a href="${doc.url}">
+          <div class="result-meta">
+            <span class="badge ${badgeClass}">${badgeLabel}</span>
+            <span class="result-date">${doc.date_ja || doc.date}</span>
+          </div>
+          <div class="result-title">${doc.title}</div>
+          ${snippet ? `<div class="result-snippet">${snippet}</div>` : ''}
+          ${tagsHtml ? `<div class="result-tags">${tagsHtml}</div>` : ''}
+        </a>`;
+      resultsList.appendChild(li);
+    });
+  }
+
+  // ── 検索を実行 ────────────────────────────────────────────
+  function applySearch() {
+    const query = searchInput.value.trim();
+    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+
+    if (query.length < MIN_QUERY) {
+      resultsList.innerHTML = '';
+      noResults.style.display = 'none';
+      statusEl.textContent = docs.length > 0
+        ? `${docs.length} 件のコンテンツをインデックス済み`
+        : '';
+      return;
+    }
+
+    const matched = search(query, activeCol);
+    render(matched, terms);
+  }
+
+  // ── イベント ──────────────────────────────────────────────
+  searchInput.addEventListener('input', () => {
+    clearTimeout(debounceId);
+    debounceId = setTimeout(applySearch, DEBOUNCE_MS);
+  });
+
+  // コレクションフィルター
+  document.getElementById('filter-row').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCol = btn.dataset.col;
+    applySearch();
+  });
+
+  // ── 起動 ─────────────────────────────────────────────────
+  loadIndex();
+</script>
+</body>
+</html>
