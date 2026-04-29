@@ -1,12 +1,12 @@
 ---
 layout: null
 ---
-<!DOCTYPE html>
+<\!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xアーカイブ - rmaruy</title>
+  <title>X / Twitter アーカイブ - 重ね描き日記</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -17,58 +17,77 @@ layout: null
       padding: 60px 20px;
     }
     .container { max-width: 640px; margin: 0 auto; }
-    .back { font-size: 13px; color: #999; margin-bottom: 24px; display: block; text-decoration: none; }
+    .back { font-size: 13px; color: #999; margin-bottom: 32px; display: block; text-decoration: none; }
     .back:hover { color: #cc2b2b; }
-    header { margin-bottom: 32px; }
+    header { margin-bottom: 28px; }
     header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
     header p { font-size: 13px; color: #666; }
 
-    .search-box {
-      width: 100%;
-      padding: 10px 14px;
-      font-size: 14px;
-      font-family: inherit;
-      border: 1.5px solid #e0e0e0;
-      border-radius: 6px;
-      outline: none;
-      margin-bottom: 16px;
-      transition: border-color 0.15s;
+    .year-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 28px;
     }
-    .search-box:focus { border-color: #cc2b2b; }
-
-    .year-filter { margin-bottom: 24px; }
-    .year-filter-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-    .year-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
     .year-btn {
-      background: #f5f5f5;
-      border: 1px solid transparent;
-      padding: 3px 8px;
+      padding: 4px 12px;
       border-radius: 4px;
-      font-size: 11px;
+      border: 1px solid #e0e0e0;
+      background: #f5f5f5;
+      font-size: 13px;
       font-family: inherit;
       cursor: pointer;
       color: #444;
       transition: all 0.15s;
     }
     .year-btn:hover { background: #eee; }
-    .year-btn.active { background: #cc2b2b; color: #fff; border-color: #cc2b2b; }
+    .year-btn.active { background: #0d0d0d; color: #fff; border-color: #0d0d0d; }
 
-    .result-count { font-size: 12px; color: #999; margin-bottom: 12px; min-height: 18px; }
+    .meta-bar { font-size: 12px; color: #999; margin-bottom: 20px; min-height: 18px; }
 
-    .tweet-list { list-style: none; }
-    .tweet-item {
+    .month-group { margin-bottom: 32px; }
+    .month-label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
       border-bottom: 1px solid #f0f0f0;
-      padding: 14px 0;
     }
-    .tweet-item.hidden { display: none; }
-    .tweet-text { font-size: 14px; line-height: 1.75; margin-bottom: 6px; white-space: pre-wrap; word-break: break-word; }
-    .tweet-meta { font-size: 12px; color: #aaa; display: flex; gap: 12px; }
-    .tweet-meta a { color: #bbb; text-decoration: none; }
-    .tweet-meta a:hover { color: #cc2b2b; }
 
-    .no-results { padding: 32px 0; text-align: center; font-size: 14px; color: #999; display: none; }
-    .loading { padding: 32px 0; text-align: center; font-size: 14px; color: #999; }
+    .tweet-item {
+      display: flex;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f8f8f8;
+    }
+    .tweet-date {
+      font-size: 12px;
+      color: #bbb;
+      flex-shrink: 0;
+      width: 52px;
+      padding-top: 2px;
+    }
+    .tweet-body { flex: 1; min-width: 0; }
+    .tweet-text {
+      font-size: 14px;
+      line-height: 1.65;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+    .tweet-text a { color: #1d9bf0; text-decoration: none; }
+    .tweet-text a:hover { text-decoration: underline; }
+    .tweet-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      color: #ccc;
+      text-decoration: none;
+    }
+    .tweet-link:hover { color: #1d9bf0; }
 
+    .loading { text-align: center; padding: 60px 0; font-size: 14px; color: #999; }
     footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #999; text-align: center; }
   </style>
 </head>
@@ -76,124 +95,102 @@ layout: null
   <div class="container">
     <a class="back" href="/">← プロフィールに戻る</a>
     <header>
-      <h1>Xアーカイブ</h1>
-      <p id="header-desc">@rmaruy のポスト一覧</p>
+      <h1>X / Twitter アーカイブ</h1>
+      <p id="header-desc">読み込み中…</p>
     </header>
 
-    <input class="search-box" id="search" type="text" placeholder="検索...">
+    <div class="year-nav" id="year-nav"></div>
+    <div class="meta-bar" id="meta-bar"></div>
+    <div id="tweets-area"><div class="loading">ツイートを読み込み中…</div></div>
 
-    <div class="year-filter">
-      <div class="year-filter-label">年で絞り込む</div>
-      <div class="year-cloud" id="year-cloud"></div>
-    </div>
-
-    <div class="result-count" id="result-count"></div>
-
-    <div class="loading" id="loading">読み込み中...</div>
-    <ul class="tweet-list" id="tweet-list"></ul>
-    <div class="no-results" id="no-results">該当するポストが見つかりませんでした</div>
-
-    <footer>© Ryuichi Maruyama</footer>
+    <footer>© Ryuichi Maruyama &nbsp;·&nbsp; <a href="/search/" style="color:#999;text-decoration:none;">検索</a></footer>
   </div>
 
-  <script>
-    const searchInput  = document.getElementById('search');
-    const tweetList    = document.getElementById('tweet-list');
-    const yearCloud    = document.getElementById('year-cloud');
-    const resultCount  = document.getElementById('result-count');
-    const noResults    = document.getElementById('no-results');
-    const loadingEl    = document.getElementById('loading');
-    const headerDesc   = document.getElementById('header-desc');
+<script>
+  const MONTHS_JA = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  let allTweets = [];
+  let activeYear = null;
 
-    let allTweets = [];
-    let activeYear = '';
+  async function init() {
+    const res = await fetch('/tweets.json');
+    allTweets = await res.json();
 
-    // URLのリンク化
-    function linkify(text) {
-      return text
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
-        .replace(/@(\w+)/g, '<a href="https://x.com/$1" target="_blank" rel="noopener">@$1</a>');
-    }
+    const years = [...new Set(allTweets.map(t => t.date.slice(0,4)))].sort((a,b) => b-a);
+    activeYear = years[0];
 
-    function renderTweets(tweets) {
-      tweetList.innerHTML = '';
-      tweets.forEach(t => {
-        const li = document.createElement('li');
-        li.className = 'tweet-item';
-        li.dataset.text = t.text.toLowerCase();
-        li.dataset.year = t.date ? t.date.slice(0, 4) : '';
-        li.innerHTML = `
-          <div class="tweet-text">${linkify(t.text)}</div>
-          <div class="tweet-meta">
-            <span>${t.date || ''}</span>
-            <a href="${t.url}" target="_blank" rel="noopener">X で見る →</a>
-          </div>`;
-        tweetList.appendChild(li);
-      });
-    }
+    document.getElementById('header-desc').textContent =
+      allTweets.length.toLocaleString() + ' ツイート（RT除く）/ 2011〜' + years[0];
 
-    function buildYearButtons(tweets) {
-      const years = [...new Set(tweets.map(t => t.date ? t.date.slice(0,4) : '').filter(Boolean))].sort().reverse();
-      yearCloud.innerHTML = '<button class="year-btn active" data-year="">all</button>';
-      years.forEach(y => {
-        const btn = document.createElement('button');
-        btn.className = 'year-btn';
-        btn.dataset.year = y;
-        btn.textContent = y;
-        yearCloud.appendChild(btn);
-      });
-      yearCloud.querySelectorAll('.year-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          activeYear = activeYear === btn.dataset.year ? '' : btn.dataset.year;
-          yearCloud.querySelectorAll('.year-btn').forEach(b => {
-            b.classList.toggle('active', b.dataset.year === activeYear || (activeYear === '' && b.dataset.year === ''));
-          });
-          applyFilter();
-        });
-      });
-    }
+    const nav = document.getElementById('year-nav');
+    years.forEach(y => {
+      const btn = document.createElement('button');
+      btn.className = 'year-btn' + (y === activeYear ? ' active' : '');
+      btn.textContent = y;
+      btn.dataset.year = y;
+      btn.addEventListener('click', () => setYear(y));
+      nav.appendChild(btn);
+    });
 
-    function applyFilter() {
-      const query = searchInput.value.trim().toLowerCase();
-      const items = tweetList.querySelectorAll('.tweet-item');
-      let visible = 0;
-      items.forEach(item => {
-        const textOk = !query || item.dataset.text.includes(query);
-        const yearOk = !activeYear || item.dataset.year === activeYear;
-        if (textOk && yearOk) {
-          item.classList.remove('hidden');
-          visible++;
-        } else {
-          item.classList.add('hidden');
-        }
-      });
-      if (query || activeYear) {
-        resultCount.textContent = visible + ' 件';
-      } else {
-        resultCount.textContent = '';
-      }
-      noResults.style.display = visible === 0 ? 'block' : 'none';
-    }
+    renderYear(activeYear);
+  }
 
-    searchInput.addEventListener('input', applyFilter);
+  function setYear(y) {
+    activeYear = y;
+    document.querySelectorAll('.year-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.year === y);
+    });
+    renderYear(y);
+  }
 
-    // データ読み込み
-    fetch('./data.json')
-      .then(r => {
-        if (!r.ok) throw new Error('data.json not found');
-        return r.json();
-      })
-      .then(data => {
-        allTweets = data;
-        loadingEl.style.display = 'none';
-        headerDesc.textContent = `@rmaruy のポスト ${data.length.toLocaleString()} 件`;
-        renderTweets(data);
-        buildYearButtons(data);
-      })
-      .catch(() => {
-        loadingEl.textContent = 'データがまだ準備されていません。parse_tweets.py を実行してください。';
-      });
-  </script>
+  function renderYear(year) {
+    const tweets = allTweets.filter(t => t.date.startsWith(year));
+    const bar = document.getElementById('meta-bar');
+    bar.textContent = year + '年: ' + tweets.length + ' ツイート';
+
+    // 月別にグループ
+    const byMonth = {};
+    tweets.forEach(t => {
+      const m = parseInt(t.date.slice(5,7), 10);
+      if (\!byMonth[m]) byMonth[m] = [];
+      byMonth[m].push(t);
+    });
+
+    const area = document.getElementById('tweets-area');
+    const months = Object.keys(byMonth).map(Number).sort((a,b) => b-a);
+
+    area.innerHTML = months.map(m => {
+      const items = byMonth[m];
+      const rows = items.map(t => {
+        const day = t.date.slice(8,10);
+        const text = escapeHtml(t.content).replace(
+          /(https?:\/\/[^\s]+)/g,
+          '<a href="$1" target="_blank" rel="noopener">$1</a>'
+        );
+        return '<div class="tweet-item">' +
+          '<span class="tweet-date">' + day + '日</span>' +
+          '<div class="tweet-body">' +
+            '<div class="tweet-text">' + text + '</div>' +
+            '<a class="tweet-link" href="' + t.url + '" target="_blank" rel="noopener">X で見る →</a>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      return '<div class="month-group">' +
+        '<div class="month-label">' + year + '年 ' + MONTHS_JA[m-1] + '</div>' +
+        rows +
+      '</div>';
+    }).join('');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  init().catch(e => {
+    document.getElementById('tweets-area').innerHTML =
+      '<div class="loading">読み込みに失敗しました: ' + e.message + '</div>';
+  });
+</script>
 </body>
 </html>

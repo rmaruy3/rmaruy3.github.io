@@ -141,7 +141,7 @@ layout: null
       <button class="filter-btn active" data-col="all">すべて</button>
       <button class="filter-btn" data-col="blog">Blog</button>
       <button class="filter-btn" data-col="note">note</button>
-      <!-- Twitter追加時: <button class="filter-btn" data-col="tweet">X / Twitter</button> -->
+      <button class="filter-btn" data-col="tweet">X / Twitter</button>
     </div>
 
     <div class="status" id="status"></div>
@@ -159,9 +159,11 @@ layout: null
   const MIN_QUERY    = 1;    // 最低文字数
 
   // ── 状態 ─────────────────────────────────────────────────
-  let docs       = [];
-  let activeCol  = 'all';
-  let debounceId = null;
+  let docs          = [];
+  let tweetsLoaded  = false;
+  let tweetsLoading = false;
+  let activeCol     = 'all';
+  let debounceId    = null;
 
   const searchInput = document.getElementById('search');
   const resultsList = document.getElementById('results');
@@ -172,17 +174,30 @@ layout: null
 
   // ── データ読み込み ─────────────────────────────────────────
   async function loadIndex() {
-    const sources = ['/search.json'];
-    // Twitter追加時: sources.push('/tweets.json'); など
-
-    const fetched = await Promise.allSettled(sources.map(u => fetch(u).then(r => r.json())));
-    let all = [];
-    fetched.forEach(r => { if (r.status === 'fulfilled') all = all.concat(r.value); });
-    docs = all;
+    const res = await fetch('/search.json').then(r => r.json()).catch(() => []);
+    docs = res;
     loadingEl.style.display = 'none';
     statusEl.textContent = `${docs.length} 件のコンテンツをインデックス済み`;
-    // 入力済みがあればすぐ検索
     if (searchInput.value.trim().length >= MIN_QUERY) applySearch();
+  }
+
+  // ── ツイートを遅延ロード（Xフィルタ選択時のみ） ──────────────
+  async function loadTweets() {
+    if (tweetsLoaded || tweetsLoading) return;
+    tweetsLoading = true;
+    loadingEl.style.display = 'block';
+    loadingEl.textContent   = 'ツイートを読み込み中…';
+    try {
+      const tweets = await fetch('/tweets.json').then(r => r.json());
+      docs = docs.concat(tweets);
+      tweetsLoaded = true;
+    } catch(e) {
+      console.warn('tweets.json の読み込みに失敗しました', e);
+    }
+    tweetsLoading = false;
+    loadingEl.style.display = 'none';
+    statusEl.textContent = `${docs.length} 件のコンテンツをインデックス済み`;
+    applySearch();
   }
 
   // ── 検索ロジック（日本語対応・マルチワード） ─────────────────
@@ -310,13 +325,18 @@ layout: null
   });
 
   // コレクションフィルター
-  document.getElementById('filter-row').addEventListener('click', e => {
+  document.getElementById('filter-row').addEventListener('click', async e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeCol = btn.dataset.col;
-    applySearch();
+    // X/Twitter フィルタが初めて押されたときだけツイートをロード
+    if ((activeCol === 'tweet' || activeCol === 'all') && !tweetsLoaded) {
+      await loadTweets();
+    } else {
+      applySearch();
+    }
   });
 
   // ── URLパラメータ読み込み（?q=キーワード&c=blog など） ──────
