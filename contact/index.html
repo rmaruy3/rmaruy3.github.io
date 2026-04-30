@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - 丸山隆一</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #ffffff;
+      color: #0d0d0d;
+      line-height: 1.7;
+      padding: 60px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    .back { font-size: 13px; color: #999; margin-bottom: 32px; display: block; text-decoration: none; }
+    .back:hover { color: #cc2b2b; }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    .contact-form { display: flex; flex-direction: column; gap: 8px; }
+    .contact-form input,
+    .contact-form textarea {
+      font-family: inherit;
+      font-size: 13px;
+      color: #555;
+      background: #fafafa;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 8px 10px;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: #bbb; background: #fff; }
+    .contact-form textarea { min-height: 80px; }
+    .contact-form button {
+      align-self: flex-end;
+      font-family: inherit;
+      font-size: 12px;
+      color: #999;
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .contact-form button:hover { border-color: #999; color: #555; }
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">&#8592; プロフィールに戻る</a>
+    <h1>Contact</h1>
+    <form class="contact-form" action="https://formspree.io/f/xnjlkkdp" method="POST">
+      <input type="email" name="email" placeholder="your email" required>
+      <textarea name="message" placeholder="message" required></textarea>
+      <button type="submit">send</button>
+    </form>
+    <footer>© Ryuichi Maruyama</footer>
+  </div>
+</body>
+</html>
