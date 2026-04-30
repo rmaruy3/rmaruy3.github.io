@@ -200,10 +200,18 @@ layout: null
     applySearch();
   }
 
-  // ── 検索ロジック（日本語対応・マルチワード） ─────────────────
+  // ── クエリをパース（| でOR、スペースでAND） ────────────────
+  function parseQuery(query) {
+    // "A B | C D" → [["a","b"], ["c","d"]]（OR グループの配列）
+    return query.toLowerCase().split('|')
+      .map(g => g.trim().split(/\s+/).filter(Boolean))
+      .filter(g => g.length > 0);
+  }
+
+  // ── 検索ロジック（AND/OR対応・日本語） ────────────────────────
   function search(query, col) {
-    const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
-    if (terms.length === 0) return [];
+    const groups = parseQuery(query);
+    if (groups.length === 0) return [];
 
     return docs
       .filter(doc => col === 'all' || doc.collection === col)
@@ -213,17 +221,20 @@ layout: null
         const tagsL    = (doc.tags    || '').toLowerCase();
 
         let score = 0;
-        const allMatch = terms.every(term => {
-          const inTitle   = titleL.includes(term);
-          const inContent = contentL.includes(term);
-          const inTags    = tagsL.includes(term);
-          if (inTitle)   score += 10;
-          if (inTags)    score += 5;
-          if (inContent) score += 1;
-          return inTitle || inContent || inTags;
-        });
+        // いずれかのORグループが全ANDを満たせばマッチ
+        const anyMatch = groups.some(terms =>
+          terms.every(term => {
+            const inTitle   = titleL.includes(term);
+            const inContent = contentL.includes(term);
+            const inTags    = tagsL.includes(term);
+            if (inTitle)   score += 10;
+            if (inTags)    score += 5;
+            if (inContent) score += 1;
+            return inTitle || inContent || inTags;
+          })
+        );
 
-        return allMatch ? { doc, score } : null;
+        return anyMatch ? { doc, score } : null;
       })
       .filter(Boolean)
       .sort((a, b) => {
@@ -309,7 +320,6 @@ layout: null
   // ── 検索を実行 ────────────────────────────────────────────
   function applySearch() {
     const query = searchInput.value.trim();
-    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
 
     if (query.length < MIN_QUERY) {
       resultsList.innerHTML = '';
@@ -320,8 +330,10 @@ layout: null
       return;
     }
 
+    // ハイライト用: 全ORグループの全termをフラットに集める
+    const allTerms = parseQuery(query).flat();
     const matched = search(query, activeCol);
-    render(matched, terms);
+    render(matched, allTerms);
   }
 
   // ── イベント ──────────────────────────────────────────────
