@@ -31,5 +31,5 @@
  
 | 対象 | ライセンス |
 |---|---|
-| コード（HTML / CSS / JS / config / scripts） | [MIT License](./LICENSE) |
-| 文章コンテンツ（ブログ・ノート・ツイート） | © Ryuichi Maruyama — All Rights Reserved。|
+| コード（HTML / CSS / JS / config / scripts） | MIT License |
+| 文章コンテンツ（ブログ・ノート・ツイート） | © Ryuichi Maruyama — All Rights Reserved|
