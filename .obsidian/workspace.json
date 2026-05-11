@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-05-04-post.md",
+                "file": "_note/2026-05-11-note.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-05-04-post"
+              "title": "2026-05-11-note"
             }
           }
         ]
@@ -185,6 +185,13 @@
   },
   "active": "82b44fbb693e3e64",
   "lastOpenFiles": [
+    "_note/2026-05-11-note.md.tmp.27164.1778511188090",
+    "_note/2025-12-31-note.md",
+    "_note/2026-05-11-note.md",
+    "無題のフォルダ 1",
+    "_posts/2026-05-04-post.md",
+    "2026-05-11.md",
+    "無題のフォルダ",
     "_site/assets/images/20260504_understanding_3.png",
     "_site/assets/images/20260504_understanding_4.png",
     "_site/assets/images/AIと生きる時代の〈理解〉考.png",
@@ -196,14 +203,11 @@
     "_site/tweets/2026",
     "_site/tweets/2025/index.html",
     "_site/tweets/2025",
-    "_site/tweets/2024/index.html",
-    "_site/tweets/2024",
     "_site/assets/images/20260504_understanding_2.png",
     "_site/assets/images/20260504_understanding_1.png",
     "_site/README.md",
     "_site/LICENSE-CONTENT.md",
     "_posts/2026-04-11-post.md",
-    "_posts/2026-05-04-post.md",
     "assets/images/20260504_understanding_1.png",
     "_posts/2026-02-17-post.md",
     "_posts/2025-10-12-post.md",
@@ -212,7 +216,6 @@
     "assets/images/20260504_understanding_4.png",
     "assets/images/20260504_understanding_3.png",
     "assets/images/Pasted image 20260504202147.png",
-    "assets/images/Pasted image 20260504200421.png",
     "_posts/2026-05-xx-post.md",
     "_posts/2015-06-13-post.md",
     "_posts/2015-07-12-post.md",
