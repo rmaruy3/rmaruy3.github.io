@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_note/2026-05-11-note.md",
+                "file": "_note/2026-05-16-note.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-05-11-note"
+              "title": "2026-05-16-note"
             }
           }
         ]
@@ -185,9 +185,10 @@
   },
   "active": "82b44fbb693e3e64",
   "lastOpenFiles": [
+    "_note/2026-05-11-note.md",
+    "_note/2026-05-16-note.md",
     "_note/2026-05-11-note.md.tmp.27164.1778511188090",
     "_note/2025-12-31-note.md",
-    "_note/2026-05-11-note.md",
     "無題のフォルダ 1",
     "_posts/2026-05-04-post.md",
     "2026-05-11.md",
@@ -202,7 +203,6 @@
     "_site/tweets/2026/index.html",
     "_site/tweets/2026",
     "_site/tweets/2025/index.html",
-    "_site/tweets/2025",
     "_site/assets/images/20260504_understanding_2.png",
     "_site/assets/images/20260504_understanding_1.png",
     "_site/README.md",
