@@ -1,0 +1,42 @@
+# 記事（_posts / _note）がpushされたら、OGP画像を自動生成してコミットする。
+# スクリプトは冪等（設定済み記事はスキップ）なので、
+# このワークフロー自身のコミットで再実行されても何も起きず、ループしない。
+name: Generate OGP images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_posts/**"
+      - "_note/**"
+  workflow_dispatch:   # 手動実行も可能
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Japanese fonts and Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          pip install pillow
+
+      - name: Generate OGP images
+        run: python scripts/generate_post_ogp.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add _posts _note assets/images/ogp
+          git diff --staged --quiet || (git commit -m "chore: generate OGP images" && git push)
