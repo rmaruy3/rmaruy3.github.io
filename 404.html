@@ -1,25 +1,36 @@
 ---
 permalink: /404.html
-layout: page
+title: ページが見つかりません
+sitemap: false
 ---
-
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 重ね描き日記</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #ffffff;
+      color: #0d0d0d;
+      line-height: 1.7;
+      padding: 60px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; text-align: center; }
+    h1 { font-size: 64px; font-weight: 700; margin: 40px 0 8px; color: #cc2b2b; }
+    p { font-size: 14px; color: #666; margin-bottom: 32px; }
+    a { color: #cc2b2b; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <p>お探しのページは見つかりませんでした。</p>
+    <a href="/">← トップページに戻る</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="/search/">検索する</a>
+  </div>
+</body>
+</html>

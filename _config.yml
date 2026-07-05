@@ -23,12 +23,29 @@ email: rmaruy3@gmail.com
 description: 読書メモ、探究メモなど。
 baseurl: ""
 url: "https://rmaruy3.github.io"
+lang: ja
 twitter_username: rmaruy
 github_username: rmaruy3
 timezone: Asia/Tokyo
 permalink: /blog/:year/:month/:day/:title.html
+
+# --- SEO / OGP（jekyll-seo-tag が参照する設定）---
+author:
+  name: 丸山隆一（Ryuichi Maruyama）
+twitter:
+  username: rmaruy
+  card: summary_large_image
+social:
+  name: 丸山隆一
+  links:
+    - https://twitter.com/rmaruy
+    - https://github.com/rmaruy3
+    - https://www.linkedin.com/in/ryuichimaruyama1987/
+
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 collections:
   note:
@@ -41,7 +58,16 @@ defaults:
       type: note
     values:
       layout: post_note
+  # 全ページ共通のデフォルトOGP画像（記事側の front matter で image: を書けば上書き可能）
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/ogp-default.png
 
 exclude:
   - _templates/
   - convert_tweets.py
+  - scripts/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
