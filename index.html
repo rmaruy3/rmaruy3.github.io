@@ -11,6 +11,7 @@ description: metascience communicator・丸山隆一のホームページ。ブ�
   {% seo title=false %}
   {% feed_meta %}
   <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="alternate" hreflang="en" href="https://rmaruy3.github.io/en/">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -44,6 +45,21 @@ description: metascience communicator・丸山隆一のホームページ。ブ�
       font-size: 13px;
       color: #cc2b2b;
       font-style: italic;
+    }
+    .profile .lang-badge {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 12px;
+      color: #999;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 3px 12px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .profile .lang-badge:hover {
+      color: #cc2b2b;
+      border-color: #cc2b2b;
     }
 
     /* ブログカード（大） */
@@ -168,6 +184,7 @@ description: metascience communicator・丸山隆一のホームページ。ブ�
       <h1>丸山隆一（Ryuichi Maruyama）</h1>
       <p class="role">個人事業主</p>
       <p class="tagline">"metascience communicator"</p>
+      <a class="lang-badge" href="/en/">EN</a>
     </section>
 
     <!-- Writing -->
