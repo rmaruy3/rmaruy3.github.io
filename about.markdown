@@ -1,5 +1,7 @@
 ---
-layout: page
+# Minimaテーマの雛形ページ（未使用）。ビルド対象外にしてある。ファイルごと削除してOK。
+published: false
+layout: null
 title: About
 permalink: /about/
 ---
