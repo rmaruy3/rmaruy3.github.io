@@ -5,17 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>現代社会を生きるための AI×哲学 — 非公式サイト</title>
 <meta name="description" content="谷口忠大・鈴木貴之・丸山隆一 著『現代社会を生きるための AI×哲学』(講談社サイエンティフィク)の非公式読書ガイドサイト。全15章のダイジェスト・第0章全文、キーワード辞典。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="現代社会を生きるための AI×哲学">
+<meta property="og:title" content="現代社会を生きるための AI×哲学 — 著者による読書ガイド">
+<meta property="og:description" content="著者の一人がつくる非公式読書ガイド。第0章「はじめに」の全文、全15章のダイジェスト、キーワード集(89語)を公開。">
+<meta property="og:url" content="https://rmaruy3.github.io/ai-philosophy/">
+<meta property="og:image" content="https://rmaruy3.github.io/ai-philosophy/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="現代社会を生きるための AI×哲学 — 著者による読書ガイド">
+<meta name="twitter:description" content="著者の一人がつくる非公式読書ガイド。第0章「はじめに」の全文、全15章のダイジェスト、キーワード集(89語)を公開。">
+<meta name="twitter:image" content="https://rmaruy3.github.io/ai-philosophy/assets/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FFFFFF;
   --fg:#1A1A1A;
   --sub:#6B6B6B;
-  --rule:#E5E5E5;
-  --accent:#C7274E;
-  --serif:'Shippori Mincho', serif;
+  --rule:#E4E8EB;
+  --accent:#146390;
+  --accent-light:#4FB3E8;
+  --part-tech:#1B527A;
+  --part-phil:#524877;
+  --part-society:#1C6259;
+  --part-overview:#545454;
+  --part-tech-phil:#3A5A80;
+  --part-society-phil:#3A6070;
   --sans:'Noto Sans JP', sans-serif;
   --label:'Inter', sans-serif;
   --maxw:42rem;
@@ -38,8 +57,9 @@ body{
 }
 @media (min-width:600px){ body{font-size:17px;} }
 h1,h2,h3,h4{
-  font-family:var(--serif);
-  font-weight:600;
+  font-family:var(--sans);
+  font-weight:700;
+  letter-spacing:0.01em;
   line-height:1.5;
   margin:0;
 }
@@ -49,12 +69,14 @@ img{max-width:100%;display:block;}
 button{font-family:inherit;background:none;border:none;cursor:pointer;color:inherit;}
 .label{
   font-family:var(--label);
+  font-weight:600;
   font-size:0.72rem;
   letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--sub);
 }
 .accent{color:var(--accent);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
 /* ===== Header ===== */
 .site-header{
@@ -76,16 +98,19 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
   height:64px;
 }
 .brand{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:0.92rem;
-  letter-spacing:0.02em;
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:0.85rem;
+  letter-spacing:0.01em;
+  line-height:1;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:60vw;
+  display:inline-flex;
+  align-items:center;
 }
-@media (min-width:600px){ .brand{font-size:1.05rem;} }
+@media (min-width:600px){ .brand{font-size:0.97rem;} }
 .header-nav{
   display:flex;
   align-items:center;
@@ -93,11 +118,15 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
 }
 .header-nav button, .header-nav a.nav-link{
   font-family:var(--label);
+  font-weight:600;
   font-size:0.78rem;
   letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--fg);
   padding:0.3rem 0;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
   border-bottom:1px solid transparent;
   transition:border-color .2s, color .2s;
 }
@@ -105,15 +134,15 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
   border-bottom-color:var(--accent);
   color:var(--accent);
 }
-.nav-desktop{display:flex;gap:2rem;}
-.hamburger{display:none;flex-direction:column;gap:4px;padding:8px;}
+.nav-desktop{display:flex;align-items:center;gap:2rem;}
+.hamburger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;}
 .hamburger span{width:20px;height:1px;background:var(--fg);display:block;}
 @media (max-width:760px){
   .header-nav .nav-desktop{display:none;}
   .hamburger{display:flex;}
 }
 .progress-bar{
-  position:fixed;top:64px;left:0;height:2px;background:var(--accent);
+  position:fixed;top:65px;left:0;height:2px;background:var(--accent);
   width:0%;z-index:101;transition:width .15s ease-out;
 }
 
@@ -133,7 +162,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
 }
 .overlay-close:hover{color:var(--accent);}
 .overlay-section{margin-bottom:3rem;}
-.overlay-section h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--sub);margin-bottom:1.2rem;font-weight:500;}
+.overlay-section h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--sub);margin-bottom:1.2rem;font-weight:600;}
 .toc-list{list-style:none;margin:0;padding:0;}
 .toc-item{
   border-top:1px solid var(--rule);
@@ -144,7 +173,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
 }
 .toc-item a:hover .toc-title{color:var(--accent);}
 .toc-num{font-family:var(--label);font-size:0.85rem;color:var(--sub);width:2.4rem;flex-shrink:0;}
-.toc-title{font-family:var(--serif);font-size:1.25rem;font-weight:500;flex-shrink:0;transition:color .2s;}
+.toc-title{font-family:var(--sans);font-size:1.1rem;font-weight:700;letter-spacing:0.01em;flex-shrink:0;transition:color .2s;}
 .toc-q{font-size:0.85rem;color:var(--sub);font-family:var(--sans);line-height:1.6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
 @media (max-width:640px){
   .toc-q{display:none;}
@@ -153,7 +182,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer;color:inhe
 .overlay-menu-list li{border-top:1px solid var(--rule);}
 .overlay-menu-list li:last-child{border-bottom:1px solid var(--rule);}
 .overlay-menu-list a,.overlay-menu-list button{
-  display:block;width:100%;text-align:left;padding:1rem 0.2rem;font-family:var(--serif);font-size:1.1rem;
+  display:block;width:100%;text-align:left;padding:1rem 0.2rem;font-family:var(--sans);font-weight:500;font-size:0.97rem;
 }
 .overlay-menu-list a:hover,.overlay-menu-list button:hover{color:var(--accent);}
 
@@ -164,38 +193,66 @@ main{min-height:70vh;}
 
 /* ===== Home ===== */
 .hero{
+  max-width:64rem;
+  margin:0 auto;
   padding:7rem 1.5rem 5rem;
-  text-align:center;
+  text-align:left;
 }
 .hero-label{margin-bottom:1.6rem;}
 .hero-pretitle{
-  font-family:var(--serif);
-  font-size:clamp(0.95rem, 1.8vw, 1.15rem);
+  font-family:var(--sans);
+  font-size:clamp(0.85rem, 1.6vw, 1.0rem);
   font-weight:500;
   color:var(--sub);
-  letter-spacing:0.08em;
+  letter-spacing:0.02em;
   margin-bottom:0.6rem;
 }
 .hero-title{
-  font-size:clamp(2.4rem, 6vw, 4rem);
-  letter-spacing:0.06em;
+  font-size:clamp(2.1rem, 5.3vw, 3.5rem);
+  letter-spacing:0.02em;
   margin-bottom:1.8rem;
 }
 .hero-authors{
   font-family:var(--label);
+  font-weight:600;
   font-size:0.85rem;
   letter-spacing:0.06em;
   color:var(--sub);
   margin-bottom:2.8rem;
 }
+.hero-lower{
+  display:flex;
+  flex-direction:column;
+  gap:2.4rem;
+}
+.hero-cover{
+  width:200px;
+  max-width:60%;
+  flex-shrink:0;
+}
+.hero-cover img{
+  width:100%;
+  display:block;
+  border:1px solid var(--rule);
+  box-shadow:0 16px 32px -12px rgba(20,99,144,0.35);
+}
 .hero-intro{
-  max-width:38rem;margin:0 auto;color:var(--fg);font-size:1rem;line-height:2.0;
+  max-width:38rem;margin:0;color:var(--fg);font-size:1rem;line-height:2.0;text-align:left;
+}
+@media (min-width:800px){
+  .hero-lower{
+    flex-direction:row-reverse;
+    align-items:flex-start;
+    gap:3.5rem;
+  }
+  .hero-cover{width:260px;}
+  .hero-intro{flex:1;}
 }
 .section-divider{border:none;border-top:1px solid var(--rule);max-width:var(--maxw);margin:0 auto;}
 .section{padding:4.5rem 1.5rem;}
 .section-head{max-width:var(--maxw);margin:0 auto 2.6rem;}
 .section-head .label{margin-bottom:0.8rem;display:block;}
-.section-head h2{font-size:clamp(1.5rem,3vw,1.9rem);}
+.section-head h2{font-size:clamp(1.3rem,2.6vw,1.65rem);}
 .section-head .lede{color:var(--sub);margin-top:0.8rem;font-size:0.98rem;}
 
 .chapter-list{max-width:var(--maxw);margin:0 auto;}
@@ -205,8 +262,8 @@ main{min-height:70vh;}
 }
 .chapter-row:last-child{border-bottom:1px solid var(--rule);}
 .chapter-row:hover .cr-title{color:var(--accent);}
-.cr-num{font-family:var(--label);font-size:0.8rem;color:var(--sub);width:2.2rem;flex-shrink:0;}
-.cr-title{font-family:var(--serif);font-size:1.05rem;flex-shrink:0;transition:color .2s;}
+.cr-num{font-family:var(--label);font-weight:600;font-size:0.8rem;color:var(--sub);width:2.2rem;flex-shrink:0;}
+.cr-title{font-family:var(--sans);font-weight:500;font-size:0.95rem;flex-shrink:0;transition:color .2s;}
 .cr-q{font-size:0.82rem;color:var(--sub);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 @media (max-width:600px){.cr-q{display:none;}}
 
@@ -231,35 +288,41 @@ figcaption{
 /* ===== Chapter View ===== */
 .chapter-header{padding:5rem 1.5rem 3rem;text-align:center;border-bottom:1px solid var(--rule);}
 .chapter-part{margin-bottom:1rem;}
-.chapter-title{font-size:clamp(1.9rem,4.5vw,2.8rem);letter-spacing:0.03em;margin-bottom:1.2rem;}
+.chapter-part.pt-tech{color:var(--part-tech);}
+.chapter-part.pt-phil{color:var(--part-phil);}
+.chapter-part.pt-society{color:var(--part-society);}
+.chapter-part.pt-overview{color:var(--part-overview);}
+.chapter-part.pt-tech-phil{color:var(--part-tech-phil);}
+.chapter-part.pt-society-phil{color:var(--part-society-phil);}
+.chapter-title{font-size:clamp(1.65rem,4vw,2.45rem);letter-spacing:0.02em;margin-bottom:1.2rem;}
 .chapter-lede{
-  max-width:38rem;margin:1.6rem auto 0;font-family:var(--serif);font-weight:500;
-  font-size:1.15rem;line-height:1.9;color:#333;
+  max-width:38rem;margin:1.6rem auto 0;font-family:var(--sans);font-weight:500;
+  font-size:1.1rem;line-height:1.9;color:#333;
 }
 .chapter-body{padding:3.5rem 1.5rem;}
 .chapter-body .container p{margin-bottom:1.6em;}
 figure.book-figure{margin:3rem auto;max-width:40rem;text-align:center;}
 figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#FDFDFD;}
 .pull-quote{
-  max-width:var(--maxw);margin:3.5rem auto;padding-left:1.6rem;
-  border-left:2px solid var(--accent);
+  max-width:var(--maxw);margin:3.5rem auto;padding-left:1.8rem;
+  border-left:1px solid var(--accent-light);
 }
 .pull-quote p{
-  font-family:var(--serif);font-size:1.3rem;line-height:1.85;font-weight:500;color:var(--fg);margin-bottom:0.8rem;
+  font-family:var(--sans);font-size:1.35rem;line-height:1.9;font-weight:300;color:var(--fg);margin-bottom:0.8rem;
 }
-.pull-quote cite{font-family:var(--label);font-size:0.75rem;letter-spacing:0.06em;color:var(--sub);font-style:normal;}
+.pull-quote cite{font-family:var(--label);font-weight:600;font-size:0.75rem;letter-spacing:0.06em;color:var(--sub);font-style:normal;}
 
 .chapter-sections{max-width:var(--maxw);margin:3rem auto;}
-.chapter-sections h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-bottom:1.1rem;font-weight:500;}
+.chapter-sections h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-bottom:1.1rem;font-weight:600;}
 .sec-list{list-style:none;margin:0;padding:0;}
 .sec-list li{padding:0.55rem 0;border-top:1px solid var(--rule);font-size:0.95rem;color:#333;}
 .sec-list li:last-child{border-bottom:1px solid var(--rule);}
 
 .reading-guide{max-width:var(--maxw);margin:3rem auto;}
-.reading-guide h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-bottom:1.3rem;font-weight:500;}
+.reading-guide h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-bottom:1.3rem;font-weight:600;}
 .rg-item{padding:1rem 0;border-top:1px solid var(--rule);}
 .rg-item:last-child{border-bottom:1px solid var(--rule);}
-.rg-title{font-family:var(--serif);font-weight:700;font-size:1rem;margin-bottom:0.3rem;}
+.rg-title{font-family:var(--sans);font-weight:700;font-size:0.98rem;margin-bottom:0.3rem;}
 .rg-author{font-size:0.85rem;color:var(--sub);margin-bottom:0.4rem;}
 .rg-note{font-size:0.85rem;color:#444;line-height:1.7;}
 
@@ -270,7 +333,7 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 .footnav-link{font-family:var(--label);font-size:0.78rem;letter-spacing:0.05em;color:var(--sub);max-width:40%;}
 .footnav-link:hover{color:var(--accent);}
 .footnav-link .dir{display:block;font-size:0.68rem;letter-spacing:0.1em;margin-bottom:0.4rem;color:var(--sub);text-transform:uppercase;}
-.footnav-link .ttl{font-family:var(--serif);font-size:1rem;color:var(--fg);}
+.footnav-link .ttl{font-family:var(--sans);font-weight:500;font-size:0.9rem;color:var(--fg);}
 .footnav-link:hover .ttl{color:var(--accent);}
 .footnav-center{text-align:center;}
 .book-link-small{font-family:var(--label);font-size:0.72rem;letter-spacing:0.08em;color:var(--sub);border:1px solid var(--rule);padding:0.6rem 1.1rem;display:inline-block;}
@@ -278,12 +341,12 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 
 /* ===== Lexicon View ===== */
 .lexicon-head{max-width:60rem;margin:0 auto;padding:5rem 1.5rem 2rem;text-align:center;}
-.lexicon-head h1{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:1rem;}
+.lexicon-head h1{font-size:clamp(1.65rem,3.5vw,2.25rem);margin-bottom:1rem;}
 .lexicon-head p{color:var(--sub);}
 .lexicon-controls{
   max-width:60rem;margin:0 auto;padding:0 1.5rem 2.5rem;
   display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
-  position:sticky;top:64px;background:rgba(255,255,255,0.94);backdrop-filter:blur(6px);z-index:10;
+  position:sticky;top:65px;background:rgba(255,255,255,0.94);backdrop-filter:blur(6px);z-index:10;
   padding-top:1rem;border-bottom:1px solid var(--rule);
 }
 .search-input{
@@ -301,14 +364,14 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 }
 .lex-index-group{margin-bottom:0.5rem;}
 .lex-index-head{
-  font-family:var(--serif);font-weight:700;font-size:1.5rem;color:var(--accent);
-  padding:1.6rem 0 0.6rem;border-bottom:2px solid var(--accent);margin-bottom:0.2rem;
+  font-family:var(--sans);font-weight:700;font-size:1.3rem;letter-spacing:0.01em;color:var(--accent);
+  padding:1.6rem 0 0.6rem;border-bottom:2px solid var(--accent-light);margin-bottom:0.2rem;
 }
 .lex-index-head:first-child{padding-top:0;}
 .lex-item-grid{column-count:2;column-gap:3rem;}
 @media (max-width:760px){.lex-item-grid{column-count:1;}}
 .lex-item{break-inside:avoid;padding:1.3rem 0;border-top:1px solid var(--rule);}
-.lex-term{font-family:var(--serif);font-weight:700;font-size:1.08rem;}
+.lex-term{font-family:var(--sans);font-weight:700;font-size:0.98rem;letter-spacing:0.01em;}
 .lex-yomi{font-family:var(--sans);font-size:0.72rem;color:var(--sub);margin-left:0.5rem;}
 .lex-en{font-family:var(--label);font-style:italic;font-size:0.78rem;color:var(--sub);margin-left:0.6rem;}
 .lex-gloss{font-size:0.9rem;color:#333;margin:0.5rem 0 0.6rem;line-height:1.8;}
@@ -317,15 +380,17 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 
 /* ===== Book View ===== */
 .book-view{max-width:var(--maxw);margin:0 auto;padding:5rem 1.5rem 5rem;}
-.book-view h1{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:2.5rem;text-align:center;}
+.book-view h1{font-size:clamp(1.65rem,3.5vw,2.25rem);margin-bottom:2.5rem;text-align:center;}
+.book-cover-figure{max-width:320px;margin:0 auto 3rem;}
+.book-cover-figure img{width:100%;display:block;border:1px solid var(--rule);box-shadow:0 20px 40px -14px rgba(20,99,144,0.35);}
 .biblio{border-top:1px solid var(--rule);}
 .biblio-row{display:flex;padding:0.9rem 0;border-bottom:1px solid var(--rule);font-size:0.92rem;}
 .biblio-key{font-family:var(--label);font-size:0.72rem;letter-spacing:0.06em;color:var(--sub);width:8rem;flex-shrink:0;text-transform:uppercase;padding-top:0.15rem;}
 .biblio-val{flex:1;}
 .recommend-block{margin:3rem 0;padding:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.recommend-block h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sub);margin-bottom:1.2rem;font-weight:500;}
-.recommend-quote{font-family:var(--serif);font-size:1.05rem;line-height:1.9;margin-bottom:0.6rem;}
-.recommend-name{font-family:var(--label);font-size:0.8rem;color:var(--sub);margin-bottom:1.4rem;}
+.recommend-block h3{font-family:var(--label);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sub);margin-bottom:1.2rem;font-weight:600;}
+.recommend-quote{font-family:var(--sans);font-weight:300;font-size:1.05rem;line-height:1.95;margin-bottom:0.6rem;}
+.recommend-name{font-family:var(--label);font-weight:600;font-size:0.8rem;color:var(--sub);margin-bottom:1.4rem;}
 .book-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:2.5rem 0;}
 .notice{margin-top:3rem;padding:1.6rem 1.8rem;border:1px solid var(--rule);font-size:0.88rem;color:var(--sub);line-height:1.9;}
 
@@ -333,9 +398,9 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 .recommend-list{max-width:var(--maxw);margin:0 auto;}
 .recommend-item{padding:2rem 0;border-top:1px solid var(--rule);}
 .recommend-item:last-child{border-bottom:1px solid var(--rule);}
-.recommend-item .recommend-title{font-family:var(--serif);font-weight:600;font-size:1.05rem;margin-bottom:0.9rem;color:var(--fg);}
-.recommend-item .recommend-quote{font-family:var(--serif);font-size:1.0rem;line-height:1.95;margin-bottom:0.9rem;color:#333;}
-.recommend-item .recommend-name{font-family:var(--label);font-size:0.8rem;color:var(--sub);text-align:right;}
+.recommend-item .recommend-title{font-family:var(--sans);font-weight:700;font-size:1.0rem;letter-spacing:0.01em;margin-bottom:0.9rem;color:var(--fg);}
+.recommend-item .recommend-quote{font-family:var(--sans);font-weight:300;font-size:1.02rem;line-height:2.0;margin-bottom:0.9rem;color:#333;}
+.recommend-item .recommend-name{font-family:var(--label);font-weight:600;font-size:0.8rem;color:var(--sub);text-align:right;}
 
 /* ===== Authors ===== */
 .authors-list{max-width:60rem;margin:0 auto;}
@@ -344,6 +409,7 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
   align-items:flex-start;
 }
 .author-item:last-child{border-bottom:1px solid var(--rule);}
+.author-item.no-photo{gap:0;}
 @media (max-width:640px){.author-item{flex-direction:column;gap:1.2rem;}}
 .author-photo{
   width:96px;height:96px;border-radius:50%;flex-shrink:0;
@@ -353,25 +419,27 @@ figure.book-figure img{border:1px solid var(--rule);padding:1.2rem;background:#F
 }
 .author-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .author-monogram{
-  font-family:var(--serif);font-size:1.6rem;font-weight:600;color:var(--sub);
+  font-family:var(--sans);font-size:1.6rem;font-weight:700;color:var(--sub);
 }
 .author-body{flex:1;}
-.author-name{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:0.2rem;}
+.author-name{font-family:var(--sans);font-size:1.15rem;font-weight:700;letter-spacing:0.01em;margin-bottom:0.2rem;}
 .author-name .yomi{font-family:var(--label);font-size:0.7rem;color:var(--sub);font-weight:400;margin-left:0.6rem;letter-spacing:0.02em;}
-.author-role{font-family:var(--label);font-size:0.78rem;color:var(--sub);letter-spacing:0.03em;margin-bottom:0.9rem;}
+.author-role{font-family:var(--label);font-weight:600;font-size:0.78rem;color:var(--sub);letter-spacing:0.03em;margin-bottom:0.9rem;}
 .author-bio{font-size:0.92rem;line-height:1.9;color:#333;}
+.author-bio a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+.author-bio a:hover{text-decoration:none;}
 
 /* ===== Chapter 0 full text ===== */
 .ch0-note{
   max-width:var(--maxw);margin:0 auto 2rem;text-align:center;
-  font-family:var(--label);font-size:0.75rem;letter-spacing:0.05em;color:var(--accent);
+  font-family:var(--label);font-weight:600;font-size:0.75rem;letter-spacing:0.05em;color:var(--accent);
   border:1px solid var(--rule);padding:0.6rem 1rem;
 }
 .ch0-section{max-width:var(--maxw);margin:0 auto;}
-.ch0-heading{font-size:1.35rem;margin:3rem 0 1.4rem;padding-bottom:0.6rem;border-bottom:1px solid var(--rule);}
-.ch0-subheading{font-family:var(--serif);font-weight:700;font-size:1.05rem;margin:2rem 0 0.8rem;color:var(--accent);}
+.ch0-heading{font-size:1.2rem;letter-spacing:0.01em;margin:3rem 0 1.4rem;padding-bottom:0.6rem;border-bottom:1px solid var(--rule);}
+.ch0-subheading{font-family:var(--sans);font-weight:700;font-size:1.0rem;margin:2rem 0 0.8rem;color:var(--accent);}
 .chapter-badge{
-  display:inline-block;font-family:var(--label);font-size:0.62rem;letter-spacing:0.06em;
+  display:inline-block;font-family:var(--label);font-weight:600;font-size:0.62rem;letter-spacing:0.06em;
   color:var(--accent);border:1px solid var(--accent);padding:0.12rem 0.5rem;margin-left:0.6rem;
   vertical-align:middle;border-radius:2px;
 }
@@ -451,6 +519,16 @@ const FIGS = {
 };
 const HOME_FIG = {file:"assets/fig_0_1.png", caption:"図0.1　各章の位置づけ"};
 
+const PART_CLASS = {
+  "技術":"pt-tech",
+  "哲学":"pt-phil",
+  "社会":"pt-society",
+  "総論":"pt-overview",
+  "技術と哲学":"pt-tech-phil",
+  "社会と哲学":"pt-society-phil"
+};
+function partClass(part){ return PART_CLASS[part] || ""; }
+
 const RECOMMENDATIONS = [
   {
     title:"人間とAIからなるよりよい「われわれ（WE）」の作り方のレシピ、ここに誕生！",
@@ -475,7 +553,7 @@ const AUTHORS = [
   },
   {
     id:"suzuki",
-    photo:"assets/author_suzuki.jpg",
+    photo:null,
     name:"鈴木貴之",
     yomi:"すずき・たかゆき",
     role:"東京大学大学院総合文化研究科 教授",
@@ -483,7 +561,7 @@ const AUTHORS = [
   },
   {
     id:"maruyama",
-    photo:"assets/author_maruyama.jpg",
+    photo:null,
     name:"丸山隆一",
     yomi:"まるやま・りゅういち",
     role:"個人事業主",
@@ -527,9 +605,14 @@ function viewHome(){
       <div class="hero-pretitle">現代社会を生きるための</div>
       <h1 class="hero-title">AI×哲学</h1>
       <div class="hero-authors">谷口忠大　鈴木貴之　丸山隆一　著</div>
-      <div class="hero-intro">
-        <p>AIとともに暮らすことが当たり前になったいま、私たちに必要なのは技術の理解だけでも、哲学的な考察だけでもない。本書は「技術としてのAI」「心の哲学としてのAI」「社会の中のAI」という3つの視点を行き来しながら、AIという鏡を通して現代社会と人間そのものを問い直す15章の書物である。</p>
-        <p>本サイトはその非公式な読書ガイドとして、各章のダイジェスト（第0章は全文）、キーワード辞典を提供する。</p>
+      <div class="hero-lower">
+        <div class="hero-cover">
+          <img src="assets/cover.jpg" alt="書影：現代社会を生きるための AI×哲学" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="hero-intro">
+          <p>AIとともに暮らすことが当たり前になったいま、私たちに必要なのは技術の理解だけでも、哲学的な考察だけでもない。本書は「技術としてのAI」「心の哲学としてのAI」「社会の中のAI」という3つの視点を行き来しながら、AIという鏡を通して現代社会と人間そのものを問い直す15章の教科書です。</p>
+          <p>本サイトはその読書ガイドとして、各章のダイジェスト（第0章は全文）、キーワード集を提供します。</p>
+        </div>
       </div>
     </section>
 
@@ -638,7 +721,7 @@ function viewChapter(n){
   return `
   <div class="fade-in">
     <div class="chapter-header">
-      <div class="chapter-part label">CHAPTER ${String(n).padStart(2,"0")} — ${esc(c.part||"")}</div>
+      <div class="chapter-part label ${esc(partClass(c.part))}">CHAPTER ${String(n).padStart(2,"0")} — ${esc(c.part||"")}</div>
       <h1 class="chapter-title">${esc(c.title)}${isFullChapter ? '<span class="chapter-badge">全文公開</span>' : ''}</h1>
       ${(!isFullChapter && c.highlight) ? `<p class="chapter-lede">${esc(c.highlight)}</p>` : ""}
     </div>
@@ -765,15 +848,16 @@ function renderAuthors(){
   return `
     <div class="authors-list">
       ${AUTHORS.map(a=>`
-        <div class="author-item" id="author-${a.id}">
+        <div class="author-item${a.photo ? '' : ' no-photo'}" id="author-${a.id}">
+          ${a.photo ? `
           <div class="author-photo">
             <img src="${a.photo}" alt="${esc(a.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <span class="author-monogram" style="display:none;">${esc(a.name[0]||"")}</span>
-          </div>
+          </div>` : ""}
           <div class="author-body">
             <div class="author-name">${esc(a.name)}<span class="yomi">${esc(a.yomi)}</span></div>
             <div class="author-role">${esc(a.role)}</div>
-            <p class="author-bio">${esc(a.bio)}</p>
+            <p class="author-bio">${esc(a.bio)}${a.id==="maruyama" ? ' <a href="https://rmaruy3.github.io/" target="_blank" rel="noopener">ウェブサイト</a>' : ""}</p>
           </div>
         </div>`).join("")}
     </div>`;
@@ -784,6 +868,9 @@ function viewBook(){
   <div class="fade-in book-view">
     <span class="label" style="display:block;text-align:center;margin-bottom:1rem;">About the Book</span>
     <h1>本について</h1>
+    <div class="book-cover-figure">
+      <img src="assets/cover.jpg" alt="書影：現代社会を生きるための AI×哲学" loading="lazy" onerror="this.parentElement.style.display='none'">
+    </div>
     <div class="biblio">
       <div class="biblio-row"><div class="biblio-key">書名</div><div class="biblio-val">現代社会を生きるための AI×哲学</div></div>
       <div class="biblio-row"><div class="biblio-key">著者</div><div class="biblio-val">谷口忠大・鈴木貴之・丸山隆一</div></div>
@@ -919,41 +1006,4 @@ function updateProgressBar(route){
 function buildTocList(){
   const list = document.getElementById("toc-list");
   list.innerHTML = DATA.chapters.map(c=>`
-    <li class="toc-item">
-      <a href="#/chapter/${c.number}">
-        <span class="toc-num">${String(c.number).padStart(2,"0")}</span>
-        <span class="toc-title">${esc(c.title)}</span>
-        <span class="toc-q">${esc(c.question||"")}</span>
-      </a>
-    </li>`).join("");
-}
-
-function openOverlay(){
-  document.getElementById("toc-overlay").classList.add("open");
-  document.getElementById("toc-overlay").setAttribute("aria-hidden","false");
-  document.body.style.overflow="hidden";
-}
-function closeOverlay(){
-  const ov = document.getElementById("toc-overlay");
-  ov.classList.remove("open");
-  ov.setAttribute("aria-hidden","true");
-  document.body.style.overflow="";
-}
-
-document.getElementById("toc-open-btn").addEventListener("click", openOverlay);
-document.getElementById("hamburger-btn").addEventListener("click", openOverlay);
-document.getElementById("toc-close-btn").addEventListener("click", closeOverlay);
-document.getElementById("toc-overlay").addEventListener("click", (e)=>{
-  if(e.target.id==="toc-overlay") closeOverlay();
-});
-document.addEventListener("keydown", (e)=>{
-  if(e.key==="Escape") closeOverlay();
-});
-
-buildTocList();
-window.addEventListener("hashchange", render);
-render();
-
-</script>
-</body>
-</html>
+    <li cla
