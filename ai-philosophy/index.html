@@ -1006,4 +1006,41 @@ function updateProgressBar(route){
 function buildTocList(){
   const list = document.getElementById("toc-list");
   list.innerHTML = DATA.chapters.map(c=>`
-    <li cla
+    <li class="toc-item">
+      <a href="#/chapter/${c.number}">
+        <span class="toc-num">${String(c.number).padStart(2,"0")}</span>
+        <span class="toc-title">${esc(c.title)}</span>
+        <span class="toc-q">${esc(c.question||"")}</span>
+      </a>
+    </li>`).join("");
+}
+
+function openOverlay(){
+  document.getElementById("toc-overlay").classList.add("open");
+  document.getElementById("toc-overlay").setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+}
+function closeOverlay(){
+  const ov = document.getElementById("toc-overlay");
+  ov.classList.remove("open");
+  ov.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+
+document.getElementById("toc-open-btn").addEventListener("click", openOverlay);
+document.getElementById("hamburger-btn").addEventListener("click", openOverlay);
+document.getElementById("toc-close-btn").addEventListener("click", closeOverlay);
+document.getElementById("toc-overlay").addEventListener("click", (e)=>{
+  if(e.target.id==="toc-overlay") closeOverlay();
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.key==="Escape") closeOverlay();
+});
+
+buildTocList();
+window.addEventListener("hashchange", render);
+render();
+
+</script>
+</body>
+</html>
