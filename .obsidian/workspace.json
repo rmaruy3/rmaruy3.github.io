@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_note/2026-05-16-note.md",
+                "file": "_posts/2026-07-25-post.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-05-16-note"
+              "title": "2026-07-25-post"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 298.5
+    "width": 297.5124969482422
   },
   "right": {
     "id": "2a29d8d8a9da76c1",
@@ -185,8 +185,12 @@
   },
   "active": "82b44fbb693e3e64",
   "lastOpenFiles": [
-    "_note/2026-05-11-note.md",
+    "_posts/2026-07-25-post.md.tmp.10296.d055e6e0dd7a",
+    "_posts/2026-07-25-post.md.tmp.10296.0760913ad115",
+    "_posts/2026-07-25-post.md.tmp.10296.e0af5645ad82",
+    "_posts/2026-07-25-post.md.tmp.10296.04d1f3992d7e",
     "_note/2026-05-16-note.md",
+    "_note/2026-05-11-note.md",
     "_note/2026-05-11-note.md.tmp.27164.1778511188090",
     "_note/2025-12-31-note.md",
     "無題のフォルダ 1",
@@ -200,9 +204,6 @@
     "_site/blog/2026/05/04",
     "_site/blog/2026/05",
     "_site/tweets_meta.json",
-    "_site/tweets/2026/index.html",
-    "_site/tweets/2026",
-    "_site/tweets/2025/index.html",
     "_site/assets/images/20260504_understanding_2.png",
     "_site/assets/images/20260504_understanding_1.png",
     "_site/README.md",
