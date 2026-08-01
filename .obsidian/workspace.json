@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-07-25-post.md",
+                "file": "_note/2026-08-01-note.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-07-25-post"
+              "title": "2026-08-01-note"
             }
           }
         ]
@@ -185,6 +185,13 @@
   },
   "active": "82b44fbb693e3e64",
   "lastOpenFiles": [
+    "_note/2026-08-01-note.md.tmp.21556.e02ee6ed515d",
+    "_note/2026-08-01-note.md.tmp.21556.1716e741b695",
+    "_note/2026-08-01-note.md.tmp.21556.c080b9bd075b",
+    "_posts/2026-07-25-post.md",
+    "assets/images/20260504_understanding_3.png",
+    "_note/2026-08-01-note.md",
+    "_note/2026-08-01-note.md.tmp.19740.10f316527389",
     "scripts/generate_book_ogp.py",
     "scripts/generate_book_ogp.py.tmp.13804.25661eeed4d5",
     "assets/images/hito-to-ai-cover.jpg",
@@ -196,16 +203,12 @@
     "_posts/2026-07-25-post.md.tmp.10296.04d1f3992d7e",
     "_note/2026-05-16-note.md",
     "_note/2026-05-11-note.md",
-    "_note/2026-05-11-note.md.tmp.27164.1778511188090",
     "_note/2025-12-31-note.md",
-    "無題のフォルダ 1",
     "_posts/2026-05-04-post.md",
     "2026-05-11.md",
-    "無題のフォルダ",
     "_site/assets/images/20260504_understanding_3.png",
     "_site/assets/images/20260504_understanding_4.png",
     "_site/assets/images/AIと生きる時代の〈理解〉考.png",
-    "_site/blog/2026/05/04/post.html",
     "_site/assets/images/20260504_understanding_2.png",
     "_site/assets/images/20260504_understanding_1.png",
     "_site/README.md",
@@ -216,7 +219,6 @@
     "_posts/2025-10-12-post.md",
     "assets/images/Pasted image 20260504212243.png",
     "_posts/2026-02-01-post.md",
-    "assets/images/20260504_understanding_4.png",
     "_posts/2026-05-xx-post.md",
     "_posts/2015-06-13-post.md",
     "_posts/2015-07-12-post.md",
