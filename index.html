@@ -94,6 +94,28 @@ description: metascience communicator・丸山隆一のホームページ。ブ�
       color: #666;
     }
 
+    /* 連載カード（最新回へ誘導） */
+    .series-card {
+      margin-bottom: 12px;
+      border-color: #cc2b2b;
+    }
+    .series-card .label { color: #cc2b2b; }
+    .series-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 0 0 48px 4px;
+      font-size: 12px;
+      color: #999;
+    }
+    .series-links a {
+      color: #999;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      transition: color 0.15s;
+    }
+    .series-links a:hover { color: #cc2b2b; }
+
     /* noteアーカイブカード（ブログより控えめ） */
     .note-card {
       display: block;
@@ -186,6 +208,21 @@ description: metascience communicator・丸山隆一のホームページ。ブ�
       <p class="tagline">"metascience communicator"</p>
       <a class="lang-badge" href="/en/">EN</a>
     </section>
+
+    <!-- Series -->
+    <div class="section">
+      <p class="section-label">Series</p>
+      <a class="blog-card series-card" href="/blog/2026/08/23/post.html">
+        <div class="label">連載・最新回</div>
+        <h2>AIと生きる時代の〈理解〉考</h2>
+        <p>第3回：理解の作業モデルをつくる（2026年8月）</p>
+      </a>
+      <div class="series-links">
+        <a href="/blog/2026/02/01/post.html">第0回 連載を始めるにあたって</a>
+        <a href="/blog/2026/02/17/post.html">第1回 LLMは理解しているのか？</a>
+        <a href="/blog/2026/05/04/post.html">第2回 理解の価値とは何か</a>
+      </div>
+    </div>
 
     <!-- Writing -->
     <div class="section">
