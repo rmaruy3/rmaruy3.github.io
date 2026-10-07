@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI × サイバー攻撃 専門家ウォッチ</title>
+<meta name="description" content="2026年秋に相次ぐ不正アクセス・情報漏えいについて、AIの関与を専門家がどう見ているかを定点観測するページ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0D0D0D;--red:#CC2B2B;--line:#E0E0E0;--sub:#5a5a5a;--muted:#8a8a8a}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Noto Sans JP",sans-serif;font-size:15px;line-height:1.75}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 40px 32px}
+h1{font-family:"Arial Black","Noto Sans JP",sans-serif;font-weight:900;font-size:clamp(34px,5.4vw,60px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--red)}
+.lead{color:var(--sub);margin:0 0 6px;max-width:760px}
+.updated{font-size:13px;color:var(--muted);margin:0 0 40px}
+h2{font-size:22px;font-weight:700;margin:56px 0 16px;color:var(--red)}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:#fff}
+.kpi .l{font-size:13px;color:var(--sub);margin:0}
+.kpi .n{font-family:"Arial Black","Noto Sans JP",sans-serif;font-size:34px;margin:2px 0;color:var(--ink)}
+.kpi .s{font-size:12px;color:var(--muted);margin:0}
+.src{font-size:12px;color:var(--muted)}
+.src a{color:var(--muted);border-bottom:1px solid var(--line)}
+.src a:hover{color:var(--red);text-decoration:none}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:820px){.split{grid-template-columns:1fr}.wrap{padding:32px 20px}}
+.axis{position:relative;height:210px;border:1px solid var(--line);border-radius:6px;padding:0 8px}
+.axis .bar{position:absolute;left:24px;right:24px;top:104px;height:3px;background:linear-gradient(90deg,var(--line),var(--red))}
+.axis .lab{position:absolute;top:120px;font-size:12px;color:var(--sub)}
+.pin{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--red);top:100px;transform:translateX(-50%)}
+.chip{position:absolute;transform:translateX(-50%);font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:4px;background:#fff;cursor:pointer;white-space:nowrap;font-family:inherit;color:var(--ink)}
+.chip.on{border-color:var(--red);color:var(--red);font-weight:700}
+.quote .who{font-weight:700;font-size:17px}
+.quote .org{color:var(--sub);font-weight:400;font-size:14px}
+.quote p{margin:8px 0 10px}
+.quote .tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:4px;border:1px solid var(--red);color:var(--red);margin-left:6px;vertical-align:2px}
+.evs{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.ev h3{font-size:15px;margin:0 0 4px}
+.ev .badge{font-size:11px;color:var(--red);border:1px solid var(--red);border-radius:4px;padding:0 6px;margin-left:6px;font-weight:400}
+.ev p{font-size:13.5px;color:var(--sub);margin:0 0 8px}
+.cons{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cons .num{font-family:"Arial Black",sans-serif;color:var(--red);font-size:22px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--sub);font-weight:700}
+.log li{font-size:13.5px;margin-bottom:4px}
+footer{max-width:1080px;margin:40px auto 0;padding:20px 40px 36px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}
+footer .brand{font-family:"Arial Black",sans-serif;color:var(--ink);font-size:13px}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>相次ぐ不正アクセスは<br><em>AI</em>のせいか？</h1>
+<p class="lead">2026年9月末から日本企業の情報漏えい公表が続いています。AIの悪用が原因なのか、それとも対策不足なのか。専門家の見方を目盛りの上に並べて、定点観測しています。</p>
+<p class="updated" id="updated"></p>
+
+<section>
+<h2>数字で見る現状</h2>
+<div class="grid kpis" id="kpis"></div>
+</section>
+
+<section>
+<h2>専門家の立ち位置</h2>
+<div class="split">
+  <div>
+    <div class="axis" id="axis">
+      <div class="bar"></div>
+      <div class="lab" style="left:16px">対策不足・公表時期の重なり</div>
+      <div class="lab" style="right:16px">AI悪用が主因</div>
+    </div>
+    <p class="note">名前をクリックすると発言が表示されます。位置は発言内容をもとに編集部で判断したもので、目安です。</p>
+  </div>
+  <div class="card quote" id="quote"></div>
+</div>
+</section>
+
+<section>
+<h2>AIの関与が示された事例</h2>
+<p class="note" style="margin-top:-6px">いずれも日本国内の個別事案ではありません。国内の事案でAI使用を公表した例は、現時点で確認されていません。</p>
+<div class="grid evs" id="evs" style="margin-top:12px"></div>
+</section>
+
+<section>
+<h2>専門家の合意点</h2>
+<div class="grid cons">
+  <div class="card"><div class="num">01</div>脆弱性が公開されてから攻撃に使われるまでの時間が、AIで大きく縮んだ。</div>
+  <div class="card"><div class="num">02</div>専門知識のない攻撃者でも実行できる「大衆化」が進んでいる。</div>
+  <div class="card"><div class="num">03</div>当面の処方箋は基本対策。パッチ適用、多要素認証、多層防御、そして侵入を前提にした体制づくり。</div>
+</div>
+</section>
+
+<section>
+<h2>出典一覧</h2>
+<table>
+<thead><tr><th style="width:110px">日付</th><th style="width:150px">媒体</th><th>記事</th></tr></thead>
+<tbody id="srcs"></tbody>
+</table>
+</section>
+
+<section>
+<h2>更新履歴</h2>
+<ul class="log" id="log"></ul>
+</section>
+
+</div>
+<footer><a class="brand" href="/">rmaruy3.github.io</a><span>AI × Cyber Watch</span></footer>
+
+<script>
+const DATA = {
+  updated: "2026-10-07",
+  log: [
+    ["2026-10-07", "初版を公開。国内外の専門家8者と、AI関与の事例4件を収録。"]
+  ],
+  sources: {
+    ascii:     {d:"2026-10-05", m:"ASCII.jp",          t:"相次ぐ不正アクセス、AIが原因？ 専門家に聞く", u:"https://ascii.jp/elem/000/004/439/4439846/"},
+    itmedia:   {d:"2026-10-06", m:"ITmedia NEWS",      t:"不正アクセスなぜ急増 原因はAIか、それとも…… 専門家の見解は", u:"https://www.itmedia.co.jp/news/article/2610/06/2000002013/"},
+    nhk:       {d:"2026-10-06", m:"NHK",               t:"個人情報流出なぜ相次ぐ? 専門家“異様な状況”AI悪用可能性も", u:"https://news.web.nhk/newsweb/na/nd-20261006de55037"},
+    sankei:    {d:"2026-10",    m:"産経新聞",           t:"相次ぐ不正アクセス、企業や政府機関でも情報漏洩 AI悪用の影に「一刻の猶予もない」", u:"https://news.yahoo.co.jp/articles/02b2987eb2523507d61e0b9331b03434a8c4efc2"},
+    asahi:     {d:"2026-10",    m:"朝日新聞",           t:"タイムズカー、デジ庁、ニチレイ…続く個人情報漏洩「短期間で異様」", u:"https://news.yahoo.co.jp/articles/0b6fe6482edd4dccc59da4108a853a245c774123"},
+    kyodo:     {d:"2026-10-06", m:"SBS（共同通信引用）", t:"AI-Powered Hacking Surges in Japan, Compromising Corporate and Government Data", u:"https://news.sbs.co.kr/english/article.do?news_id=N1008785480"},
+    anno:      {d:"2026-10",    m:"ITmedia NEWS",      t:"チームみらい安野氏「サイバー攻撃能力の高いAIモデルが拡散」 相次ぐ情報漏えい受け「対応を急ぐ必要がある」", u:"https://news.yahoo.co.jp/articles/4606002dd6d804f92a7ad8ad9e0f12dd2ce846d6"},
+    smartscope:{d:"2026-10-06", m:"SmartScope",        t:"情報漏洩・不正アクセスの企業一覧（2026年9月以降）", u:"https://smartscope.blog/blog/japan-data-breach-list-tier-2026-09-10/"},
+    gambit:    {d:"2026-10-05", m:"週刊アスキー",       t:"AIでサイバー攻撃のコスト激減 数行の指示だけで27社に侵入、カード情報60万件超が流出", u:"https://weekly.ascii.jp/elem/000/004/439/4439882/"},
+    korea:     {d:"2026-10-06", m:"FinTech Journal",   t:"韓国金融機関6行へAIを使ったサイバー攻撃、2万5000人超の個人情報流出", u:"https://www.sbbit.jp/article/fj/187309"},
+    ms:        {d:"2026-10-02", m:"Help Net Security", t:"AI is giving attackers a head start, Microsoft warns", u:"https://www.helpnetsecurity.com/2026/10/02/ai-cybersecurity-threats-microsoft-report/"},
+    glm:       {d:"2026-09-29", m:"Anthropic",         t:"GLM-5.3 and the spread of advanced cyber capabilities", u:"https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities"},
+    fsa:       {d:"2026-10-06", m:"FinTech Journal",   t:"【金融庁が警鐘】相次ぐ「情報漏えい」…AI攻撃が爆速化する前に銀行が今やるべきこと", u:"https://www.sbbit.jp/article/fj/187111"},
+    jiji:      {d:"2026-06",    m:"時事通信",           t:"ミュトス並みAI普及でサイバー攻撃は「大衆化」＝吉川孝志フェローに聞く", u:"https://www.jiji.com/jc/v8?id=202606mythos-interview"}
+  },
+  kpis: [
+    {l:"公表された不正アクセス（1〜9月）", n:"600件", s:"前年通年の593件を既に超過（トレンドマイクロ）", src:"kyodo"},
+    {l:"国内公表（9/1〜10/6）", n:"107件", s:"うち10万件以上の漏えいは22件", src:"smartscope"},
+    {l:"侵入口まで公表された件数", n:"11件", s:"107件中。脆弱性9件、不正ログイン2件", src:"smartscope"},
+    {l:"月間CVE公開数", n:"2.1倍", s:"1月5,045件 → 8月10,740件（GTIG）", src:"ascii"}
+  ],
+  experts: [
+    {n:"倉持浩明", o:"ラック 取締役CTO", x:10, row:0, src:"itmedia", tag:"懐疑",
+     t:"「攻撃が短期間に急増した」というより、各社の調査・開示時期が9月末に重なった面が大きい。同一の攻撃者によるものと判断できる材料もない。AIエージェントや GLM-5.3 が使われたことを示す公表情報は確認できない。ただし中長期的に、AIが攻撃の準備と実行に必要な時間と専門性を引き下げる影響は無視できない。"},
+    {n:"高倉弘喜", o:"国立情報学研究所 教授", x:27, row:1, src:"ascii", tag:"対策不足",
+     t:"「攻撃の自動化にAIが使われたとは思うが、大きな役割は果たしていなかった。言い換えると、対策が不十分だった」。一方で、公開された脆弱性への攻撃ツールは「一瞬でできる」。人間だけで対処するのはすでに無理で、多層防御で攻撃の進行を遅らせ、人が判断する時間を確保すべき。"},
+    {n:"マクニカ研究者", o:"マクニカ", x:46, row:0, src:"asahi", tag:"状況認識",
+     t:"これほど短期間に情報漏えいが続くのは記憶になく、異様。原因の断定はせず、状況の異常さを指摘している。"},
+    {n:"捜査当局関係者", o:"共同通信の取材", x:60, row:1, src:"kyodo", tag:"大衆化",
+     t:"以前はハッキングに専門知識が必要だったが、AIの登場で技術的な知識がなくても可能になった。"},
+    {n:"トレンドマイクロ", o:"セキュリティ企業", x:67, row:0, src:"kyodo", tag:"AI寄り",
+     t:"1〜9月に公表された不正アクセスは600件で、前年通年の593件を超えた。AI技術を使ったサイバー攻撃を実行しやすい環境になっており、企業などに対策の準備を求める。"},
+    {n:"安野貴博", o:"チームみらい", x:76, row:1, src:"anno", tag:"AI寄り",
+     t:"サイバー攻撃能力の高いAIモデルが拡散している。相次ぐ情報漏えいを受け、対応を急ぐ必要がある。（見出しより）"},
+    {n:"上野宣", o:"トライコーダ 代表取締役", x:85, row:0, src:"sankei", tag:"AI主因",
+     t:"最近の事例は、新しい脆弱性をわざわざ探し出しているようで、AIを使った挙動にみえる。ただし攻撃手法そのものは劇的に変わっておらず、パッチ適用など基本対策を急ぐべき。「一刻の猶予もない」。"},
+    {n:"セキュリティー会社", o:"NHKの報道", x:91, row:1, src:"nhk", tag:"AI主因",
+     t:"7月以降に被害が増えていることから、サイバー攻撃にAIが悪用されている可能性が高い。"}
+  ],
+  evidence: [
+    {h:"Gambit Security の報告", b:"確認", src:"gambit",
+     t:"オープンソースのAIエージェント3種（Strix・Cairn・Hermes）で数百のECサイトを攻撃。27社に侵入し、カード情報60万件超が流出。スキャンのAI利用料は1社あたり平均約25ドル。"},
+    {h:"韓国の銀行6行", b:"痕跡", src:"korea",
+     t:"新韓・KB国民・ハナなど。攻撃インフラから自律型の侵入テストツールの痕跡を検出。2万5000人超の情報が流出し、金融当局は規制緩和を保留。"},
+    {h:"Microsoft Digital Defense Report 2026", b:"傾向", src:"ms",
+     t:"脆弱性の発見から悪用までの中央値は24時間を大きく下回る。ただし標的選定や複雑な侵入は、依然として大半が人手によると明記。"},
+    {h:"GLM-5.3 の評価", b:"能力", src:"glm",
+     t:"誰でも入手できる公開モデルが攻撃コードを自作。安全策は簡単な手法で回避できた。NIST CAISI は公開モデルで最も攻撃能力が高いと評価。"},
+    {h:"金融庁・日銀の要請", b:"政策", src:"fsa",
+     t:"フロンティアAIによる脅威への対応を経営課題に位置付け、未適用パッチの解消や特権IDの整理などを求める。英AISIは「防御が十分なら現時点でAIの攻撃は成功しにくい」とも報告。"},
+    {h:"攻撃の「大衆化」（参考）", b:"5〜6月", src:"jiji",
+     t:"三井物産セキュアディレクションの吉川孝志氏は、AIで攻撃の技術・コスト・時間の壁が下がったと指摘。対策は高価なAI防御より、資産管理や認証、パッチなど当たり前の対策と強調。"}
+  ]
+};
+
+const S = DATA.sources;
+const link = (k, label) => `<span class="src">出典：<a href="${S[k].u}" target="_blank" rel="noopener">${label || S[k].m + "「" + S[k].t + "」"}</a></span>`;
+
+document.getElementById("updated").textContent = "最終更新：" + DATA.updated;
+
+document.getElementById("kpis").innerHTML = DATA.kpis.map(k =>
+  `<div class="card kpi"><p class="l">${k.l}</p><p class="n">${k.n}</p><p class="s">${k.s}</p>${link(k.src, S[k.src].m)}</div>`).join("");
+
+const axis = document.getElementById("axis"), quote = document.getElementById("quote");
+function show(i){
+  const e = DATA.experts[i], s = S[e.src];
+  axis.querySelectorAll(".chip").forEach((c,j)=>c.classList.toggle("on", j===i));
+  quote.innerHTML = `<div class="who">${e.n} <span class="org">${e.o}</span><span class="tag">${e.tag}</span></div>
+    <p>${e.t}</p>${link(e.src)}<div class="src">${s.d}</div>`;
+}
+DATA.experts.forEach((e,i)=>{
+  const pin = document.createElement("div"); pin.className="pin"; pin.style.left = `calc(24px + (100% - 48px) * ${e.x/100})`; axis.appendChild(pin);
+  const c = document.createElement("button"); c.className="chip"; c.textContent=e.n;
+  c.style.left = pin.style.left; c.style.top = e.row===0 ? "52px" : "146px";
+  c.onclick = ()=>show(i); axis.appendChild(c);
+});
+show(1);
+
+document.getElementById("evs").innerHTML = DATA.evidence.map(e =>
+  `<div class="card ev"><h3>${e.h}<span class="badge">${e.b}</span></h3><p>${e.t}</p>${link(e.src, S[e.src].m + "（" + S[e.src].d + "）")}</div>`).join("");
+
+document.getElementById("srcs").innerHTML = Object.values(S).sort((a,b)=>b.d.localeCompare(a.d)).map(s =>
+  `<tr><td>${s.d}</td><td>${s.m}</td><td><a href="${s.u}" target="_blank" rel="noopener">${s.t}</a></td></tr>`).join("");
+
+document.getElementById("log").innerHTML = DATA.log.map(l=>`<li><strong>${l[0]}</strong>　${l[1]}</li>`).join("");
+</script>
+</body>
+</html>
