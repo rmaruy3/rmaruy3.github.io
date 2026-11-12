@@ -48,9 +48,23 @@
               "icon": "lucide-file",
               "title": "2026-07-25-post"
             }
+          },
+          {
+            "id": "5a6c790b3f7ab9e8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2026-11-12-post.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-11-12-post"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -214,8 +228,11 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "a8b1bb6c5ce8d050",
+  "active": "5a6c790b3f7ab9e8",
   "lastOpenFiles": [
+    "study/atom-as-an-agent/index.html",
+    "study/atom-as-an-agent",
+    "study",
     "_note/2026-08-09-note.md",
     "_posts/2026-07-25-post.md",
     "_note/2026-08-09-note.md.tmp.25096.a092346230e5",
@@ -229,9 +246,7 @@
     "_note/2026-08-01-note.md",
     "_note/2026-08-01-note.md.tmp.19740.10f316527389",
     "scripts/generate_book_ogp.py",
-    "scripts/generate_book_ogp.py.tmp.13804.25661eeed4d5",
     "assets/images/hito-to-ai-cover.jpg",
-    "_posts/2026-07-25-post.md.tmp.784.33605ed1a018",
     "assets/images/ogp/2026-07-25-post.png",
     "_note/2026-05-16-note.md",
     "_note/2026-05-11-note.md",
