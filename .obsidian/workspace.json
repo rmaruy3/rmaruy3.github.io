@@ -62,9 +62,21 @@
               "icon": "lucide-file",
               "title": "2026-11-12-post"
             }
+          },
+          {
+            "id": "288583d5dd86c54b",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.15.1"
+              },
+              "icon": "lucide-book-up",
+              "title": "リリースノート 1.15.1"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -228,8 +240,15 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "5a6c790b3f7ab9e8",
+  "active": "288583d5dd86c54b",
   "lastOpenFiles": [
+    "Claude outputs/preview-2026-11-17.html",
+    "assets/images/20261117-metamoment-ogp.png",
+    "_posts/2026-11-17-post.md",
+    "assets/images/20261117-metamoment-japan.jpg",
+    "assets/images/20261117-metamoment-fig6-1.png",
+    "assets/images/20261117-metamoment-table3-1.png",
+    "assets/images/20261117-metamoment-cover.jpg",
     "study/atom-as-an-agent/index.html",
     "study/atom-as-an-agent",
     "study",
@@ -245,7 +264,6 @@
     "assets/images/20260504_understanding_3.png",
     "_note/2026-08-01-note.md",
     "_note/2026-08-01-note.md.tmp.19740.10f316527389",
-    "scripts/generate_book_ogp.py",
     "assets/images/hito-to-ai-cover.jpg",
     "assets/images/ogp/2026-07-25-post.png",
     "_note/2026-05-16-note.md",
@@ -254,14 +272,9 @@
     "_posts/2026-05-04-post.md",
     "2026-05-11.md",
     "_site/assets/images/20260504_understanding_3.png",
-    "_site/assets/images/20260504_understanding_4.png",
-    "_site/assets/images/AIと生きる時代の〈理解〉考.png",
-    "_site/assets/images/20260504_understanding_2.png",
-    "_site/assets/images/20260504_understanding_1.png",
     "_site/README.md",
     "_site/LICENSE-CONTENT.md",
     "_posts/2026-04-11-post.md",
-    "assets/images/20260504_understanding_1.png",
     "_posts/2026-02-17-post.md",
     "_posts/2025-10-12-post.md",
     "_posts/2026-02-01-post.md",
